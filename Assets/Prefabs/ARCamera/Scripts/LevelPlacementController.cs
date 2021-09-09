@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.ARFoundation;
 
 [RequireComponent(typeof(ARPlaneFinder))]
 public class LevelPlacementController : MonoBehaviour
 {
-    private ARPlaneFinder _arPlaneFinder; 
+    private ARSessionOrigin _arSessionOrigin;
+
+    private ARPlaneFinder _arPlaneFinder;
+
     [SerializeField] private GameObject _levelPlaceholderPrefab;
     private GameObject _levelPlaceholder;
+
+    private LevelManager _levelManager;
 
     private bool _hasPlacedLevel = false;
 
     void Awake()
     {
+        _levelManager = FindObjectOfType<LevelManager>();
+        _arSessionOrigin = this.gameObject.GetComponent<ARSessionOrigin>();
         this._arPlaneFinder = this.gameObject.GetComponent<ARPlaneFinder>();
     }
 
@@ -41,7 +49,12 @@ public class LevelPlacementController : MonoBehaviour
 
     private void PlaceLevel()
     {
+        ARPlaneSearch arPlaneSearch = this._arPlaneFinder.SearchForPointedARPlane();
+        if (!arPlaneSearch.FoundPlane) return;
+
         _hasPlacedLevel = true;
+        _levelManager.UpdateLevelSpawnPosition(new Pose(arPlaneSearch.PlaneHitPosition, arPlaneSearch.CameraRotationTowardsPlane));
+        _levelManager.LoadCurrentLevel();
     }
 
     private void RenderLevelPlaceholderOnPlane()
@@ -54,7 +67,7 @@ public class LevelPlacementController : MonoBehaviour
         else
         {
             _levelPlaceholder.SetActive(true);
-            _levelPlaceholder.transform.SetPositionAndRotation(arPlaneSearch.Pose.position, arPlaneSearch.Pose.rotation);
+            _levelPlaceholder.transform.SetPositionAndRotation(arPlaneSearch.PlaneHitPosition, arPlaneSearch.CameraRotationTowardsPlane);
         }
     }
 }

@@ -22,9 +22,16 @@ public class ARPlaneFinder : MonoBehaviour
         this._arRaycastManager.Raycast(screenCenter, hits, TrackableType.Planes);
 
         if (hits.Count == 0) return new ARPlaneSearch() { FoundPlane = false };
+        
+        Pose firstHitPose = hits[0].pose;
+        Vector3 cameraForward = _arCamera.transform.forward;
+        Vector3 cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z);
+
         return new ARPlaneSearch() { 
             FoundPlane = true,
-            Pose = hits[0].pose
+            PlaneHitPosition = firstHitPose.position,
+            PlaneRotation = firstHitPose.rotation,
+            CameraRotationTowardsPlane = Quaternion.LookRotation(cameraBearing)
         };
     }
 
@@ -32,5 +39,8 @@ public class ARPlaneFinder : MonoBehaviour
 public class ARPlaneSearch 
 {
     public bool FoundPlane { set; get; } = false;
-    public Pose Pose { set; get; } = new Pose();
+    public Vector3 PlaneHitPosition { set; get; } = Vector3.zero;
+    public Quaternion PlaneRotation { set; get;}
+    public Quaternion CameraRotationTowardsPlane { set; get;}
+
 }
