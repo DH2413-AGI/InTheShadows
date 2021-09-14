@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,11 @@ public class LevelPlacementController : MonoBehaviour
 
     private bool _hasPlacedLevel = false;
 
+    public ARPlaneSearch LatestARPlaneSearch = new ARPlaneSearch() 
+    {
+        FoundPlane = false
+    };
+
     void Awake()
     {
         _levelManager = FindObjectOfType<LevelManager>();
@@ -35,6 +41,7 @@ public class LevelPlacementController : MonoBehaviour
     {
         if (!_hasPlacedLevel)
         {
+            SearchForPlane();
             RenderLevelPlaceholderOnPlane();
             HandelUserTouch();
         }
@@ -49,25 +56,28 @@ public class LevelPlacementController : MonoBehaviour
 
     private void PlaceLevel()
     {
-        ARPlaneSearch arPlaneSearch = this._arPlaneFinder.SearchForPointedARPlane();
-        if (!arPlaneSearch.FoundPlane) return;
+        if (!this.LatestARPlaneSearch.IsReasonableForLevelPlacement) return;
 
         _hasPlacedLevel = true;
-        _levelManager.UpdateLevelSpawnPosition(new Pose(arPlaneSearch.PlaneHitPosition, arPlaneSearch.CameraRotationTowardsPlane));
+        _levelManager.UpdateLevelSpawnPosition(new Pose(this.LatestARPlaneSearch.PlaneHitPosition, this.LatestARPlaneSearch.CameraRotationTowardsPlane));
         _levelManager.LoadCurrentLevel();
+    }
+
+    private void SearchForPlane()
+    {
+        this.LatestARPlaneSearch = this._arPlaneFinder.SearchForPointedARPlane();
     }
 
     private void RenderLevelPlaceholderOnPlane()
     {
-        ARPlaneSearch arPlaneSearch = this._arPlaneFinder.SearchForPointedARPlane();
-        if (!arPlaneSearch.FoundPlane) 
+        if (!this.LatestARPlaneSearch.IsReasonableForLevelPlacement) 
         {
             _levelPlaceholder.SetActive(false);
         }
         else
         {
             _levelPlaceholder.SetActive(true);
-            _levelPlaceholder.transform.SetPositionAndRotation(arPlaneSearch.PlaneHitPosition, arPlaneSearch.CameraRotationTowardsPlane);
+            _levelPlaceholder.transform.SetPositionAndRotation(this.LatestARPlaneSearch.PlaneHitPosition, this.LatestARPlaneSearch.CameraRotationTowardsPlane);
         }
     }
 }
