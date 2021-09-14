@@ -56,7 +56,7 @@ public class LevelPlacementController : MonoBehaviour
 
     private void PlaceLevel()
     {
-        if (!this.LatestARPlaneSearch.FoundPlane) return;
+        if (!this.LatestARPlaneSearch.IsReasonableForLevelPlacement) return;
 
         _hasPlacedLevel = true;
         _levelManager.UpdateLevelSpawnPosition(new Pose(this.LatestARPlaneSearch.PlaneHitPosition, this.LatestARPlaneSearch.CameraRotationTowardsPlane));
@@ -70,7 +70,7 @@ public class LevelPlacementController : MonoBehaviour
 
     private void RenderLevelPlaceholderOnPlane()
     {
-        if (!this.LatestARPlaneSearch.FoundPlane) 
+        if (!this.LatestARPlaneSearch.IsReasonableForLevelPlacement) 
         {
             _levelPlaceholder.SetActive(false);
         }

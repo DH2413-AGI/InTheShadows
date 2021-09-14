@@ -31,7 +31,8 @@ public class ARPlaneFinder : MonoBehaviour
             FoundPlane = true,
             PlaneHitPosition = firstHitPose.position,
             PlaneRotation = firstHitPose.rotation,
-            CameraRotationTowardsPlane = Quaternion.LookRotation(cameraBearing)
+            CameraRotationTowardsPlane = Quaternion.LookRotation(cameraBearing),
+            CameraTransform = _arCamera.transform,
         };
     }
 
@@ -41,6 +42,16 @@ public class ARPlaneSearch
     public bool FoundPlane { set; get; } = false;
     public Vector3 PlaneHitPosition { set; get; } = Vector3.zero;
     public Quaternion PlaneRotation { set; get;}
-    public Quaternion CameraRotationTowardsPlane { set; get;}
+    public Quaternion CameraRotationTowardsPlane { set; get; }
+    public Transform CameraTransform { set; get; }
 
+    public bool IsReasonableForLevelPlacement 
+    {
+        get {
+            if (!FoundPlane) return false;
+
+            float distanceToCamera = Vector3.Distance(CameraTransform.position, PlaneHitPosition);
+            return (distanceToCamera > 2.0f && distanceToCamera < 50.0f);
+        }
+    }
 }

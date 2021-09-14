@@ -17,7 +17,8 @@ public class LevelPlacementUIController : MonoBehaviour
 
     void Update()
     {
-        _levelPlacementPlaceText.SetActive(_levelPlacementController.LatestARPlaneSearch.FoundPlane);
-        _levelPlacementLookAroundText.SetActive(!_levelPlacementController.LatestARPlaneSearch.FoundPlane);
+        bool levelPlacementFound = _levelPlacementController.LatestARPlaneSearch.IsReasonableForLevelPlacement;
+        _levelPlacementPlaceText.SetActive(levelPlacementFound);
+        _levelPlacementLookAroundText.SetActive(!levelPlacementFound);
     }
 }
