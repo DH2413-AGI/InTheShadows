@@ -46,7 +46,6 @@ public class ShadowDetector : MonoBehaviour
         } 
         if(!currentlyInsideShadow && _isInsideShadow ) {
             _isInsideShadow = false;
-            
             if (this.OnLeavingShadow == null) return;
             this.OnLeavingShadow.Invoke();
         } 

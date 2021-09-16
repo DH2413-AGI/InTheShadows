@@ -124,7 +124,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 03cc6b1a9e93d944ca8e3b7a2756ba5a, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: dc5f53117f667f24a939bb24096ae9ba, type: 2}
 --- !u!20 &146310622 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 7856539928758924559, guid: fbdf3e7d6d29b48b5bfee55505c57052,
@@ -816,6 +816,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1216568637048596657, guid: 1734955de869c7b4fb6bfd895aa51781,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1216568637048596659, guid: 1734955de869c7b4fb6bfd895aa51781,
         type: 3}
