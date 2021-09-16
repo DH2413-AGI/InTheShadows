@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,8 @@ using UnityEngine.XR.ARFoundation;
 
 public class ShadowDetector : MonoBehaviour
 {
-    private Vector3 _originalPosition;
+    public Action OnEnterShadow;
+    public Action OnLeavingShadow;
 
     private ARSessionSetup _arSessionSetup;
 
@@ -14,38 +16,39 @@ public class ShadowDetector : MonoBehaviour
 
     public GameObject desktopCameraLight;
 
-    public GameObject player;
-
-    public NavMeshAgent playerNavMeshAgent;
-
     private GameObject _cameraLight;
 
+    private bool _isInsideShadow = false;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        _originalPosition = player.transform.position;       
         _arSessionSetup = FindObjectOfType<ARSessionSetup>();
-        StartCoroutine(_arSessionSetup.CheckForARSupport(this.setLight));
+        StartCoroutine(_arSessionSetup.CheckForARSupport(this.SetLight));
     }
 
-    private void setLight(ARSessionState arSessionState)
+    private void SetLight(ARSessionState arSessionState)
     {
         _cameraLight = arSessionState == ARSessionState.Unsupported ? desktopCameraLight : ARCameraLight; 
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Vector3 playerToLight = _cameraLight.transform.position - player.transform.position;
-        float distance = playerToLight.magnitude;
-        Vector3 origin = player.transform.position;
-        Vector3 direction = playerToLight.normalized;
+        Vector3 sensorToLight = (_cameraLight.transform.position - this.gameObject.transform.position);
+        float distanceToLight = sensorToLight.magnitude;
+        bool currentlyInsideShadow = Physics.Raycast(this.gameObject.transform.position, sensorToLight.normalized, distanceToLight);
 
-        if(Physics.Raycast(origin,direction,distance)) {
-            // Reset the player position if they are in the shadows.
-            playerNavMeshAgent.ResetPath();
-            player.transform.position = this._originalPosition;
+        if(currentlyInsideShadow && !_isInsideShadow ) {
+            _isInsideShadow = true;
+
+            if (this.OnEnterShadow == null) return;
+            this.OnEnterShadow.Invoke();
+        } 
+        if(!currentlyInsideShadow && _isInsideShadow ) {
+            _isInsideShadow = false;
+            
+            if (this.OnLeavingShadow == null) return;
+            this.OnLeavingShadow.Invoke();
         } 
     }
 }
