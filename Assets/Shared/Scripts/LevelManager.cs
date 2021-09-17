@@ -14,7 +14,7 @@ public class LevelManager : MonoBehaviour
 
     private int _currentLevelIndex = 0;
 
-    private Pose _levelSpawnPosition = new Pose(new Vector3(2.0f, 2.0f, 2.0f), Quaternion.identity);
+    private Pose _levelSpawnPosition = new Pose();
 
     private ARSessionSetup _arSessionSetup;
 
