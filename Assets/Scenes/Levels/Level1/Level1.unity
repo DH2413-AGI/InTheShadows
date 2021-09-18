@@ -137,7 +137,6 @@ GameObject:
   - component: {fileID: 15450176}
   - component: {fileID: 15450175}
   - component: {fileID: 15450174}
-  - component: {fileID: 15450173}
   m_Layer: 5
   m_Name: WalkTutorial
   m_TagString: Untagged
@@ -145,21 +144,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &15450173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 15450172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f24621395cf7742add498eb089d5cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _levelPlacementLookAroundText: {fileID: 1186773686}
-  _levelPlacementPlaceText: {fileID: 0}
-  _levelPlacementController: {fileID: 0}
 --- !u!114 &15450174
 MonoBehaviour:
   m_ObjectHideFlags: 0
