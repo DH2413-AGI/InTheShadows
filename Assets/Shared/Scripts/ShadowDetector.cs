@@ -12,13 +12,13 @@ public class ShadowDetector : MonoBehaviour
 
     private ARSessionSetup _arSessionSetup;
 
-    public GameObject ARCameraLight;
+    [SerializeField] private GameObject _arCameraLight;
 
-    public GameObject desktopCameraLight;
+    [SerializeField] private GameObject _desktopCameraLight;
 
     private GameObject _cameraLight;
 
-    private bool _isInsideShadow = false;
+    private bool _wasInsideShadow = false;
 
 
     void Start()
@@ -29,25 +29,30 @@ public class ShadowDetector : MonoBehaviour
 
     private void SetLight(ARSessionState arSessionState)
     {
-        _cameraLight = arSessionState == ARSessionState.Unsupported ? desktopCameraLight : ARCameraLight; 
+        _cameraLight = arSessionState == ARSessionState.Unsupported ? _desktopCameraLight : _arCameraLight; 
     }
 
     void Update()
     {
+        if (_cameraLight == null) return;
+
+        bool currentlyInsideShadow = this.IsInsideShadow();
+        if(currentlyInsideShadow && !_wasInsideShadow ) {
+            _wasInsideShadow = true;
+            if (this.OnEnterShadow != null) this.OnEnterShadow.Invoke();
+        } 
+        if(!currentlyInsideShadow && _wasInsideShadow ) {
+            _wasInsideShadow = false;
+            if (this.OnLeavingShadow != null) this.OnLeavingShadow.Invoke();
+        } 
+    }
+
+    public bool IsInsideShadow()
+    {
+        if (this._cameraLight == null) return true;
         Vector3 sensorToLight = (_cameraLight.transform.position - this.gameObject.transform.position);
         float distanceToLight = sensorToLight.magnitude;
-        bool currentlyInsideShadow = Physics.Raycast(this.gameObject.transform.position, sensorToLight.normalized, distanceToLight);
-
-        if(currentlyInsideShadow && !_isInsideShadow ) {
-            _isInsideShadow = true;
-
-            if (this.OnEnterShadow == null) return;
-            this.OnEnterShadow.Invoke();
-        } 
-        if(!currentlyInsideShadow && _isInsideShadow ) {
-            _isInsideShadow = false;
-            if (this.OnLeavingShadow == null) return;
-            this.OnLeavingShadow.Invoke();
-        } 
+        float marginOfErrorDistance = 1.01f;
+        return Physics.Raycast(this.gameObject.transform.position, sensorToLight.normalized, distanceToLight * marginOfErrorDistance);
     }
 }
