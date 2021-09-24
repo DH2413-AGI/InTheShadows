@@ -12,9 +12,6 @@ public class ShadowDetector : MonoBehaviour
 
     private ARSessionSetup _arSessionSetup;
 
-    [SerializeField] private GameObject _arCameraLight;
-
-    [SerializeField] private GameObject _desktopCameraLight;
 
     private GameObject _cameraLight;
 
@@ -24,17 +21,19 @@ public class ShadowDetector : MonoBehaviour
     void Start()
     {
         _arSessionSetup = FindObjectOfType<ARSessionSetup>();
-        StartCoroutine(_arSessionSetup.CheckForARSupport(this.SetLight));
     }
 
-    private void SetLight(ARSessionState arSessionState)
+    private void TryToFindLight()
     {
-        _cameraLight = arSessionState == ARSessionState.Unsupported ? _desktopCameraLight : _arCameraLight; 
+        _cameraLight = GameObject.FindGameObjectWithTag("CameraLight");
     }
 
     void Update()
     {
-        if (_cameraLight == null) return;
+        if (_cameraLight == null) {
+            this.TryToFindLight();
+            return;
+        }
 
         bool currentlyInsideShadow = this.IsInsideShadow();
         if(currentlyInsideShadow && !_wasInsideShadow ) {
