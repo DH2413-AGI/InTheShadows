@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 8309182433732932656}
   - component: {fileID: 1635783706757270978}
   - component: {fileID: 8590497957778015963}
+  - component: {fileID: 8526334374433661395}
+  - component: {fileID: 955936293514252884}
   m_Layer: 3
   m_Name: Character
   m_TagString: Untagged
@@ -133,6 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6171f231b48b50e41968bcb50dbf95fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _allowLightToControllCharacter: 1
 --- !u!114 &2104391950344142644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1587f5c9152e7c047b0b589abbdd4fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   _shadowDetector: {fileID: 2926454458302690545}
   _deathParticles: {fileID: 3335714523663822995}
   _spawnColor: {r: 0.78431374, g: 0, b: 0, a: 1}
@@ -180,6 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2d70dd214e5f034786ff09a83105118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   _walkingSpeed: 0.75
   _walkingMarkerPrefab: {fileID: 6531009921816634662, guid: aaeb374791462e245b8c0206cf4b4f66,
     type: 3}
@@ -202,6 +209,52 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8526334374433661395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216568637048596657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 1734955de869c7b4fb6bfd895aa51781
+  hasSpawned: 0
+--- !u!114 &955936293514252884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216568637048596657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  sendInterval: 0.05
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  bufferTimeMultiplier: 3
+  bufferSizeLimit: 64
+  catchupThreshold: 6
+  catchupMultiplier: 0.1
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!1 &1708599560103614258
 GameObject:
   m_ObjectHideFlags: 0

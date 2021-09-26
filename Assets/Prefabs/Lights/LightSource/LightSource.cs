@@ -10,6 +10,9 @@ public class LightSource : NetworkBehaviour
     private LevelManager _levelManager;
     private GameObject _followTarget;
 
+    [SerializeField] private GameObject _visuals;
+    [SerializeField] private Vector3 _visualsOffset;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +23,12 @@ public class LightSource : NetworkBehaviour
             this._levelManager.LevelSpawnPosition.position,
             this._levelManager.LevelSpawnPosition.rotation
         );
+
+        if (_playerSelectManager.ChosenCharacter == Character.Light) 
+        {
+            _visuals.SetActive(false);
+        }
+
     }
 
     // Update is called once per frame
@@ -30,17 +39,16 @@ public class LightSource : NetworkBehaviour
         
         UpdatePosition(
             Camera.main.transform.position - this._levelManager.LevelSpawnPosition.position,
-            Camera.main.transform.rotation * this._levelManager.LevelSpawnPosition.rotation
+            Camera.main.transform.rotation,
+            Quaternion.Inverse(this._levelManager.LevelSpawnPosition.rotation)
         );
-
-        Debug.Log(this.gameObject.transform.localPosition);
     }
 
     [Command(requiresAuthority=false)]
-    void UpdatePosition (Vector3 position, Quaternion rotation)
+    void UpdatePosition (Vector3 position, Quaternion localRotation, Quaternion globalRotatio)
     {
-        this.gameObject.transform.localPosition = position;
-        this.gameObject.transform.localRotation = rotation;
+        this.gameObject.transform.localPosition = globalRotatio * position + _visualsOffset;
+        this.gameObject.transform.rotation = localRotation;
     }
 
 }

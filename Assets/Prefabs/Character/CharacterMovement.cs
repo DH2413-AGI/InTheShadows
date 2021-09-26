@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 [RequireComponent(typeof(Rigidbody), typeof(CharacterController))]
-public class CharacterMovement : MonoBehaviour
+public class CharacterMovement : NetworkBehaviour
 {
 
     // Walk settings
@@ -28,12 +29,14 @@ public class CharacterMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (!isServer) return;
         this.UnsetDesiredPosition();
     }
 
 
     private void FixedUpdate()
     {
+        if (!isServer) return;
         if (this._shouldWalkToDesiredPosition) this.MoveTowradsDesiredPosition();
     }
 
@@ -51,6 +54,8 @@ public class CharacterMovement : MonoBehaviour
         if (distanceToDesiredPosition < 0.1f) this.UnsetDesiredPosition();
     }
 
+
+    [Command(requiresAuthority=false)]
     public void WalkToPosition(Vector3 position)
     {
         // We should not be able to walk if the player is on spawn mode
@@ -58,7 +63,7 @@ public class CharacterMovement : MonoBehaviour
         this._desiredPosition = position;
         this._shouldWalkToDesiredPosition = true;
         this.RemoveCurrentWalkingMarker();
-        this.SetWalkingMarker();
+        this.SetWalkingMarker(position);
         this._playerController.HideWalkTutorial();
     }
 
@@ -69,11 +74,20 @@ public class CharacterMovement : MonoBehaviour
         this.RemoveCurrentWalkingMarker();
     }
 
-    private void SetWalkingMarker()
+    [ClientRpc]
+    private void SetWalkingMarker(Vector3 position)
     {
-        this._currentWalkingMarker = Instantiate(_walkingMarkerPrefab, this._desiredPosition, Quaternion.identity);
+        this._currentWalkingMarker = Instantiate(
+            _walkingMarkerPrefab, 
+            Vector3.zero, 
+            Quaternion.identity,
+            FindObjectOfType<LevelPositioner>().gameObject.transform
+        );
+
+        this._currentWalkingMarker.transform.localPosition = position;
     }
 
+    [ClientRpc]
     private void RemoveCurrentWalkingMarker()
     {
         Destroy(this._currentWalkingMarker);

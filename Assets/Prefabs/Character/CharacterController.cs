@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.XR.ARFoundation;
+using Mirror;
 
 [RequireComponent(typeof(Rigidbody), typeof(CharacterMovement))]
-public class CharacterController : MonoBehaviour
+public class CharacterController : NetworkBehaviour
 {
     [SerializeField] private ShadowDetector _shadowDetector;
     [SerializeField] private ParticleSystem _deathParticles;
@@ -79,21 +80,30 @@ public class CharacterController : MonoBehaviour
     {
         if (_deathOngoing) return;
         this._deathOngoing = true;
+
         this.RunDeathEffects();
-        this._playerMovement.UnsetDesiredPosition();
         this.TogglePlayerVisibility(false);
         StartCoroutine(this.Respawn());
+
+        if (isServer) 
+        {
+            this._playerMovement.UnsetDesiredPosition();
+        }
     }
 
    private IEnumerator Respawn()
     {
         yield return new WaitForSeconds(1.0f);
         this._deathOngoing = false;
-        this.gameObject.transform.localPosition = this._spawnPosition;
         this.TogglePlayerVisibility(true);
         if (!this._shadowDetector.IsInsideShadow())  
         {
             this.EnableSpawnMode();
+        }
+
+        if (isServer) 
+        {
+            this.gameObject.transform.localPosition = this._spawnPosition;
         }
     }
 

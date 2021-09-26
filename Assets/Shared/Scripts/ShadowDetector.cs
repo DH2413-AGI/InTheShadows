@@ -52,6 +52,7 @@ public class ShadowDetector : MonoBehaviour
         Vector3 sensorToLight = (_cameraLight.transform.position - this.gameObject.transform.position);
         float distanceToLight = sensorToLight.magnitude;
         float marginOfErrorDistance = 1.01f;
+        Debug.DrawRay(this.gameObject.transform.position, sensorToLight.normalized * distanceToLight * marginOfErrorDistance, Color.red);
         return Physics.Raycast(this.gameObject.transform.position, sensorToLight.normalized, distanceToLight * marginOfErrorDistance);
     }
 }

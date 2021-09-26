@@ -431,7 +431,7 @@ Transform:
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children: []
   m_Father: {fileID: 1091997760}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &985306131
 BoxCollider:
@@ -637,6 +637,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 8526334374433661395, guid: 1734955de869c7b4fb6bfd895aa51781,
+        type: 3}
+      propertyPath: sceneId
+      value: 3899275830
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1734955de869c7b4fb6bfd895aa51781, type: 3}
@@ -950,7 +955,7 @@ PrefabInstance:
     - target: {fileID: 3966843567883091735, guid: 5229d6e597e74054e9a74fa01b3b350a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3966843567883091735, guid: 5229d6e597e74054e9a74fa01b3b350a,
         type: 3}
@@ -1011,6 +1016,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4871734163099546141, guid: 5229d6e597e74054e9a74fa01b3b350a,
+        type: 3}
+      propertyPath: sceneId
+      value: 3659171632
       objectReference: {fileID: 0}
     - target: {fileID: 5966904463042589726, guid: 5229d6e597e74054e9a74fa01b3b350a,
         type: 3}
