@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody), typeof(PlayerController))]
-public class PlayerMovement : MonoBehaviour
+[RequireComponent(typeof(Rigidbody), typeof(CharacterController))]
+public class CharacterMovement : MonoBehaviour
 {
 
     // Walk settings
@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _shouldWalkToDesiredPosition = false;
     private Vector3 _desiredPosition;
     private Rigidbody _rigidbody;
-    private PlayerController _playerController;
+    private CharacterController _playerController;
     private GameObject _currentWalkingMarker;
 
     void Awake()
@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        this._playerController = this.gameObject.GetComponent<PlayerController>();
+        this._playerController = this.gameObject.GetComponent<CharacterController>();
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -14,7 +14,7 @@ public class GoalController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        bool isPlayer = other.gameObject.GetComponent<PlayerController>() != null;
+        bool isPlayer = other.gameObject.GetComponent<CharacterController>() != null;
         this._levelManager.LoadNextLevel();
     }
 

@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.XR.ARFoundation;
 
-[RequireComponent(typeof(PlayerMovement))]
+[RequireComponent(typeof(CharacterMovement))]
 public class PlayerMovementControlls : MonoBehaviour
 {
-    private PlayerMovement _playerMovement;
+    private CharacterMovement _playerMovement;
 
     private void Awake()
     {
-        _playerMovement = this.gameObject.GetComponent<PlayerMovement>();
+        _playerMovement = this.gameObject.GetComponent<CharacterMovement>();
     }
 
     private void Update()

@@ -25,7 +25,7 @@ public class ShadowDetector : MonoBehaviour
 
     private void TryToFindLight()
     {
-        _cameraLight = GameObject.FindGameObjectWithTag("CameraLight");
+        _cameraLight = GameObject.FindGameObjectWithTag("LightSource");
     }
 
     void Update()

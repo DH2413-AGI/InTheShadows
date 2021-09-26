@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class JoinGameUIController : MonoBehaviour
 {
@@ -20,11 +21,13 @@ public class JoinGameUIController : MonoBehaviour
 
     void HostGame()
     {
+        if (NetworkServer.active) return;
         this._networkManager.StartHost();
     }
 
     void JoinGame()
     {
+        if (NetworkClient.active) return;
         string networkAdress = _joinGameInput.text.ToString();
         Debug.Log(networkAdress);
         this._networkManager.networkAddress = networkAdress;

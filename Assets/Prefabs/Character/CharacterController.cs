@@ -4,12 +4,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.XR.ARFoundation;
 
-[RequireComponent(typeof(Rigidbody), typeof(PlayerMovement))]
-public class PlayerController : MonoBehaviour
+[RequireComponent(typeof(Rigidbody), typeof(CharacterMovement))]
+public class CharacterController : MonoBehaviour
 {
     [SerializeField] private ShadowDetector _shadowDetector;
     [SerializeField] private ParticleSystem _deathParticles;
-    [SerializeField] private GameObject _needsShadow;
 
     [Tooltip("The color the player has when it spawns and do not have any shadow")]
     [SerializeField] private Color _spawnColor;
@@ -30,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private MeshRenderer _meshRenderer;
     private Outline _outline;
     private Material _material;
-    private PlayerMovement _playerMovement;
+    private CharacterMovement _playerMovement;
 
     private Animator _animator;
 
@@ -44,7 +43,7 @@ public class PlayerController : MonoBehaviour
         this._meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
         this._outline = this.gameObject.GetComponent<Outline>();
         this._material = this.gameObject.GetComponent<Renderer>().material;
-        this._playerMovement = this.gameObject.GetComponent<PlayerMovement>();
+        this._playerMovement = this.gameObject.GetComponent<CharacterMovement>();
         this._animator = this.gameObject.GetComponent<Animator>();
     }
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -991,7 +991,6 @@ GameObject:
   - component: {fileID: 1007849397}
   - component: {fileID: 1007849396}
   - component: {fileID: 1007849395}
-  - component: {fileID: 1007849394}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -999,21 +998,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1007849394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1007849393}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showGUI: 1
-  offsetX: 0
-  offsetY: 0
 --- !u!114 &1007849395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1056,8 +1040,8 @@ MonoBehaviour:
   runInBackground: 1
   autoStartServerBuild: 1
   serverTickRate: 30
-  offlineScene: 
-  onlineScene: 
+  offlineScene: Assets/Scenes/Setup/Start.unity
+  onlineScene: Assets/Scenes/Setup/PlayerSelect.unity
   transport: {fileID: 1007849395}
   networkAddress: localhost
   maxConnections: 100
@@ -1068,7 +1052,11 @@ MonoBehaviour:
     type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 3025591866143988237, guid: f433c3be991d3441ba384ec0af32204e, type: 3}
+  - {fileID: 766871256140499657, guid: ac7580d85b1ce416196eccbf2ca30146, type: 3}
+  - {fileID: 16332920999762357, guid: 5eb09224672014840ab0a896cf6977f8, type: 3}
+  - {fileID: 3413982860626777294, guid: ebcb41d2f67a59d458048d2c1dbc9a57, type: 3}
 --- !u!4 &1007849397
 Transform:
   m_ObjectHideFlags: 0

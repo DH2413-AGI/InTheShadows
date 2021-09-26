@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 1635783706757270978}
   - component: {fileID: 8590497957778015963}
   m_Layer: 3
-  m_Name: Player
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,6 +149,7 @@ MonoBehaviour:
   _deathParticles: {fileID: 3335714523663822995}
   _spawnColor: {r: 0.78431374, g: 0, b: 0, a: 1}
   _playColor: {r: 0, g: 0.78431374, b: 0, a: 1}
+  _walkTutorial: {fileID: 0}
 --- !u!114 &8309182433732932656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5330,5 +5331,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 364a88013fcc27f47af17cf0558a5346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _arCameraLight: {fileID: 0}
-  _desktopCameraLight: {fileID: 0}
