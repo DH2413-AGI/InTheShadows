@@ -83,7 +83,10 @@ public class LevelPlacementController : MonoBehaviour
         if (arSessionState != ARSessionState.Unsupported) return;
         Debug.Log("Place level desktop");
         _hasPlacedLevel = true;
-        this._levelManager.UpdateLevelSpawnPosition(new Pose());
+        this._levelManager.UpdateLevelSpawnPosition(new Pose(
+            Vector3.zero,
+            Quaternion.identity
+        ));
         this._playerReadyTracker.MarkPlayerPlacedLevel();
     }
 
