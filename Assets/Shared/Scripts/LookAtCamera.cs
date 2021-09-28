@@ -7,6 +7,7 @@ public class LookAtCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Camera.main == null) return;
         this.gameObject.transform.LookAt(Camera.main.transform);
     }
 }

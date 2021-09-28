@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class GoalController : MonoBehaviour
+public class GoalController : NetworkBehaviour
 {
     private LevelManager _levelManager;
 
@@ -14,13 +15,8 @@ public class GoalController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        bool isPlayer = other.gameObject.GetComponent<PlayerController>() != null;
+        if (!isServer) return;
+        bool isPlayer = other.gameObject.GetComponent<CharacterController>() != null;
         this._levelManager.LoadNextLevel();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

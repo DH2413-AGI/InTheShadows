@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Mirror;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : NetworkBehaviour
 {
     [Header("If active, press enter or two fingers to skip to next level")]
     [SerializeField] private bool _enableLevelSkipMode = false;
@@ -16,17 +16,15 @@ public class LevelManager : MonoBehaviour
 
     private Pose _levelSpawnPosition = new Pose();
 
-    private ARSessionSetup _arSessionSetup;
 
     public Pose LevelSpawnPosition {
         get => _levelSpawnPosition;
     }
 
-    void Awake()
+    void Start()
     {
-        DontDestroyOnLoad(this.gameObject);
         _currentLevelIndex = _startLevelIndex;
-
+        DontDestroyOnLoad(this.gameObject);
     }
 
     void Update()
@@ -64,9 +62,11 @@ public class LevelManager : MonoBehaviour
         this.LoadLevel(this._currentLevelIndex);
     }
 
+    [Command(requiresAuthority=false)]
     public void LoadLevel(int levelIndex) 
     {
         string levelNameToLoad = this._levels[levelIndex];
-        SceneManager.LoadScene(levelNameToLoad);
+        var networkManager = FindObjectOfType<NetworkManager>();
+        networkManager.ServerChangeScene(levelNameToLoad);
     }
 }
