@@ -5,6 +5,8 @@ using Mirror;
 
 public class LevelManager : NetworkBehaviour
 {
+    [SyncVar]
+
     [Header("If active, press enter or two fingers to skip to next level")]
     [SerializeField] private bool _enableLevelSkipMode = false;
 
@@ -12,18 +14,21 @@ public class LevelManager : NetworkBehaviour
     [SerializeField] private int _startLevelIndex = 0;
     [SerializeField] private List<string> _levels;
 
-    private int _currentLevelIndex = 0;
+    public int currentLevelIndex = 0;
+
+    private LevelUIController _levelUIController;
 
     private Pose _levelSpawnPosition = new Pose();
 
-
-    public Pose LevelSpawnPosition {
+    public Pose LevelSpawnPosition
+    {
         get => _levelSpawnPosition;
     }
 
     void Start()
     {
-        _currentLevelIndex = _startLevelIndex;
+        _levelUIController = FindObjectOfType<LevelUIController>();
+        currentLevelIndex = _startLevelIndex;
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -52,18 +57,24 @@ public class LevelManager : NetworkBehaviour
 
     public void LoadNextLevel()
     {
-        this._currentLevelIndex++;
-        if (this._currentLevelIndex >= this._levels.Count) return;
-        LoadLevel(this._currentLevelIndex);
+        this.currentLevelIndex++;
+        if (this.currentLevelIndex >= this._levels.Count) return;
+        LoadLevel(this.currentLevelIndex);
     }
 
     public void LoadCurrentLevel()
     {
-        this.LoadLevel(this._currentLevelIndex);
+        this.LoadLevel(this.currentLevelIndex);
     }
 
-    [Command(requiresAuthority=false)]
-    public void LoadLevel(int levelIndex) 
+    public void LoadNextLevelAfterClear()
+    {
+        _levelUIController.ShowLevelClearText();
+        LoadNextLevel();
+    }
+
+    [Command(requiresAuthority = false)]
+    public void LoadLevel(int levelIndex)
     {
         string levelNameToLoad = this._levels[levelIndex];
         var networkManager = FindObjectOfType<NetworkManager>();
