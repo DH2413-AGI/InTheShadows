@@ -5,16 +5,13 @@ using Mirror;
 
 public class LevelManager : NetworkBehaviour
 {
-    [SyncVar]
-
     [Header("If active, press enter or two fingers to skip to next level")]
     [SerializeField] private bool _enableLevelSkipMode = false;
 
     [Header("Level settings")]
     [SerializeField] private int _startLevelIndex = 0;
     [SerializeField] private List<string> _levels;
-
-    public int currentLevelIndex = 0;
+    int currentLevelIndex = 0;
 
     private LevelUIController _levelUIController;
 
@@ -79,9 +76,16 @@ public class LevelManager : NetworkBehaviour
         _levelUIController.ShowLevelClearText();
     }
 
+    [ClientRpc]
+    private void UpdateLevelIndicator(int levelIndex)
+    {
+        _levelUIController.UpdateLevelIndicator(levelIndex);
+    }
+
     [Command(requiresAuthority = false)]
     public void LoadLevel(int levelIndex)
     {
+        UpdateLevelIndicator(levelIndex);
         string levelNameToLoad = this._levels[levelIndex];
         var networkManager = FindObjectOfType<NetworkManager>();
         networkManager.ServerChangeScene(levelNameToLoad);
