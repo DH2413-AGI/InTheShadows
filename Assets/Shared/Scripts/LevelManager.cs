@@ -69,8 +69,14 @@ public class LevelManager : NetworkBehaviour
 
     public void LoadNextLevelAfterClear()
     {
-        _levelUIController.ShowLevelClearText();
+        ShowLevelClearText();
         LoadNextLevel();
+    }
+
+    [ClientRpc]
+    private void ShowLevelClearText()
+    {
+        _levelUIController.ShowLevelClearText();
     }
 
     [Command(requiresAuthority = false)]
