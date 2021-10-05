@@ -8,6 +8,9 @@ public class LevelManager : NetworkBehaviour
     [Header("If active, press enter or two fingers to skip to next level")]
     [SerializeField] private bool _enableLevelSkipMode = false;
 
+    [Header("If active, press tab to reset the levels")]
+    [SerializeField] private bool _enableResetMode = false;
+
     [Header("Level settings")]
     [SerializeField] private int _startLevelIndex = 0;
     [SerializeField] private List<string> _levels;
@@ -17,7 +20,8 @@ public class LevelManager : NetworkBehaviour
     private Pose _levelSpawnPosition = new Pose();
 
 
-    public Pose LevelSpawnPosition {
+    public Pose LevelSpawnPosition
+    {
         get => _levelSpawnPosition;
     }
 
@@ -33,6 +37,10 @@ public class LevelManager : NetworkBehaviour
         {
             CheckForSkipInput();
         }
+        if (this._enableResetMode)
+        {
+            CheckForResetInput();
+        }
     }
 
     public void CheckForSkipInput()
@@ -44,6 +52,15 @@ public class LevelManager : NetworkBehaviour
             this.LoadNextLevel();
         }
     }
+
+    public void CheckForResetInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab) && isServer)
+        {
+            this.ResetLevels();
+        }
+    }
+
 
     public void UpdateLevelSpawnPosition(Pose pose)
     {
@@ -57,13 +74,19 @@ public class LevelManager : NetworkBehaviour
         LoadLevel(this._currentLevelIndex);
     }
 
+    public void ResetLevels()
+    {
+        _currentLevelIndex = _startLevelIndex;
+        this.LoadLevel(this._currentLevelIndex);
+    }
+
     public void LoadCurrentLevel()
     {
         this.LoadLevel(this._currentLevelIndex);
     }
 
-    [Command(requiresAuthority=false)]
-    public void LoadLevel(int levelIndex) 
+    [Command(requiresAuthority = false)]
+    public void LoadLevel(int levelIndex)
     {
         string levelNameToLoad = this._levels[levelIndex];
         var networkManager = FindObjectOfType<NetworkManager>();
