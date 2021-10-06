@@ -27,6 +27,14 @@ public class CharacterMovement : NetworkBehaviour
         this._playerController = this.gameObject.GetComponent<CharacterController>();
     }
 
+    public Vector3 DesiredWalkingPosition {
+        get => this._desiredPosition;
+    }
+
+    public bool IsMoving {
+        get => this._shouldWalkToDesiredPosition;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (!isServer) return;

@@ -8,6 +8,7 @@ using Mirror;
 [RequireComponent(typeof(Rigidbody), typeof(CharacterMovement))]
 public class CharacterController : NetworkBehaviour
 {
+    [SerializeField] private GameObject _playerModel;
     [SerializeField] private ShadowDetector _shadowDetector;
     [SerializeField] private ParticleSystem _deathParticles;
 
@@ -27,10 +28,11 @@ public class CharacterController : NetworkBehaviour
     private bool _spawnModeActivated = true;
     private bool _deathOngoing = false;
 
-    private MeshRenderer _meshRenderer;
-    private Outline _outline;
-    private Material _material;
+    // private MeshRenderer _meshRenderer;
+    // private Outline _outline;
+    // private Material _material;
     private CharacterMovement _playerMovement;
+
 
     private Animator _animator;
 
@@ -41,9 +43,9 @@ public class CharacterController : NetworkBehaviour
     private void Awake()
     {
 
-        this._meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
-        this._outline = this.gameObject.GetComponent<Outline>();
-        this._material = this.gameObject.GetComponent<Renderer>().material;
+        // this._meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
+        // this._outline = this.gameObject.GetComponent<Outline>();
+        // this._material = this.gameObject.GetComponent<Renderer>().material;
         this._playerMovement = this.gameObject.GetComponent<CharacterMovement>();
         this._animator = this.gameObject.GetComponent<Animator>();
     }
@@ -114,15 +116,17 @@ public class CharacterController : NetworkBehaviour
 
     private void TogglePlayerVisibility(bool show)
     {
-        this._outline.enabled = show;
-        this._meshRenderer.enabled = show;
+        this._playerModel.SetActive(show);
+        //TODO: Add visiblity logic
+        // this._outline.enabled = show;
+        // this._meshRenderer.enabled = show;
     }
 
     private void DisabledSpawnMode()
     {
         this._spawnModeActivated = false;
         SetPlayerColor(this._playColor);
-        Debug.Log("Hide Text");
+        Debug.Log("Disable Spawn Mode");
         _animator.ResetTrigger("ShowText");
         _animator.SetTrigger("HideText");
     }
@@ -131,15 +135,16 @@ public class CharacterController : NetworkBehaviour
     {
         this._spawnModeActivated = true;
         SetPlayerColor(this._spawnColor);
-        Debug.Log("Show Text");
+        Debug.Log("Enable Spawn Mode");
         _animator.ResetTrigger("HideText");
         _animator.SetTrigger("ShowText");
     }
 
     private void SetPlayerColor(Color color)
     {
-        this._outline.OutlineColor = color;
-        this._material.color = color;
-        this._material.SetColor("_EmissionColor", color * 0.75f);
+        //TODO: Add some other effect
+        // this._outline.OutlineColor = color;
+        // this._material.color = color;
+        // this._material.SetColor("_EmissionColor", color * 0.75f);
     }
 }
