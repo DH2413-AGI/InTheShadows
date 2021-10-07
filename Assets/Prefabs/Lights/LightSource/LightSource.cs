@@ -42,7 +42,6 @@ public class LightSource : NetworkBehaviour
             Camera.main.transform.rotation,
             Quaternion.Inverse(this._levelManager.LevelSpawnPosition.rotation)
         );
-        Debug.Log(Camera.main.transform.rotation);
     }
 
     [Command(requiresAuthority=false)]
