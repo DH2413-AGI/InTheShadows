@@ -45,10 +45,10 @@ public class LightSource : NetworkBehaviour
     }
 
     [Command(requiresAuthority=false)]
-    void UpdatePosition (Vector3 position, Quaternion localRotation, Quaternion globalRotatio)
+    void UpdatePosition (Vector3 position, Quaternion localRotation, Quaternion globalRotation)
     {
-        this.gameObject.transform.localPosition = globalRotatio * position + _visualsOffset;
-        this.gameObject.transform.rotation = localRotation;
+        this.gameObject.transform.localPosition = globalRotation * position + _visualsOffset;
+        this.gameObject.transform.localRotation = globalRotation * localRotation;
     }
 
 }
