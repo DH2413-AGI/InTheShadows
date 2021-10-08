@@ -332,6 +332,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4871734163099546141, guid: 5229d6e597e74054e9a74fa01b3b350a,
+        type: 3}
+      propertyPath: sceneId
+      value: 1418798600
+      objectReference: {fileID: 0}
     - target: {fileID: 5966904463042589726, guid: 5229d6e597e74054e9a74fa01b3b350a,
         type: 3}
       propertyPath: m_Name
@@ -400,7 +405,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98f74ca2aa4d988459ca0b72d44bd59b, type: 3}
---- !u!1001 &749366171
+--- !u!1001 &755074317
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -410,7 +415,7 @@ PrefabInstance:
     - target: {fileID: 7587087412969477154, guid: fbdf3e7d6d29b48b5bfee55505c57052,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7587087412969477154, guid: fbdf3e7d6d29b48b5bfee55505c57052,
         type: 3}
@@ -465,22 +470,10 @@ PrefabInstance:
     - target: {fileID: 7587087412969477156, guid: fbdf3e7d6d29b48b5bfee55505c57052,
         type: 3}
       propertyPath: m_Name
-      value: AR Session Origin
+      value: CrossPlatformCamera
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbdf3e7d6d29b48b5bfee55505c57052, type: 3}
---- !u!1 &749366172 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 92523198960255574, guid: fbdf3e7d6d29b48b5bfee55505c57052,
-    type: 3}
-  m_PrefabInstance: {fileID: 749366171}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &749366173 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 375872295749657314, guid: fbdf3e7d6d29b48b5bfee55505c57052,
-    type: 3}
-  m_PrefabInstance: {fileID: 749366171}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &797890907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -749,7 +742,7 @@ PrefabInstance:
     - target: {fileID: 6710585094097516912, guid: 70e765a7d2cb1734aadc021f10daa3ed,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6710585094097516912, guid: 70e765a7d2cb1734aadc021f10daa3ed,
         type: 3}
@@ -1143,7 +1136,7 @@ PrefabInstance:
     - target: {fileID: 1216568637048596657, guid: 1734955de869c7b4fb6bfd895aa51781,
         type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Character
       objectReference: {fileID: 0}
     - target: {fileID: 1216568637048596657, guid: 1734955de869c7b4fb6bfd895aa51781,
         type: 3}
@@ -1184,7 +1177,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _arCameraLight
       value: 
-      objectReference: {fileID: 749366172}
+      objectReference: {fileID: 0}
     - target: {fileID: 2926454458302690545, guid: 1734955de869c7b4fb6bfd895aa51781,
         type: 3}
       propertyPath: desktopCameraLight
@@ -1194,7 +1187,12 @@ PrefabInstance:
         type: 3}
       propertyPath: _desktopCameraLight
       value: 
-      objectReference: {fileID: 749366173}
+      objectReference: {fileID: 0}
+    - target: {fileID: 8526334374433661395, guid: 1734955de869c7b4fb6bfd895aa51781,
+        type: 3}
+      propertyPath: sceneId
+      value: 3028274113
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1734955de869c7b4fb6bfd895aa51781, type: 3}
 --- !u!1 &2069313283
