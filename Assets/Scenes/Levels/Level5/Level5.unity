@@ -287,7 +287,7 @@ PrefabInstance:
     - target: {fileID: 4871734163099546141, guid: 5229d6e597e74054e9a74fa01b3b350a,
         type: 3}
       propertyPath: sceneId
-      value: 1679988953
+      value: 3813591240
       objectReference: {fileID: 0}
     - target: {fileID: 5966904463042589726, guid: 5229d6e597e74054e9a74fa01b3b350a,
         type: 3}
@@ -296,6 +296,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5229d6e597e74054e9a74fa01b3b350a, type: 3}
+--- !u!1001 &485376252
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3560626859481029213, guid: fbdf3e7d6d29b48b5bfee55505c57052,
+        type: 3}
+      propertyPath: sceneId
+      value: 1679988953
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966904463042589726, guid: 5229d6e597e74054e9a74fa01b3b350a,
+        type: 3}
+      propertyPath: m_Name
+      value: Goal
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fbdf3e7d6d29b48b5bfee55505c57052, type: 3}
 --- !u!1 &609231010
 GameObject:
   m_ObjectHideFlags: 0
@@ -1267,7 +1286,7 @@ PrefabInstance:
     - target: {fileID: 8526334374433661395, guid: 1734955de869c7b4fb6bfd895aa51781,
         type: 3}
       propertyPath: sceneId
-      value: 507663333
+      value: 392746767
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1734955de869c7b4fb6bfd895aa51781, type: 3}

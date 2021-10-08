@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657832, g: 0.496414, b: 0.5748184, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657862, g: 0.49641412, b: 0.5748185, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -136,15 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5cf25a9902b4d49b8f77134a6edd9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enableLevelSkipMode: 1
-  _startLevelIndex: 0
-  _levels:
-  - Level6
-  - Level1
-  - Level2
-  - Level4
-  - Level5
-  - Level3
 --- !u!1 &217104730
 GameObject:
   m_ObjectHideFlags: 0
@@ -1081,36 +1072,31 @@ PrefabInstance:
     - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
         type: 3}
       propertyPath: _levels.Array.data[0]
-      value: Level4
-      objectReference: {fileID: 0}
-    - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
-        type: 3}
-      propertyPath: _levels.Array.data[1]
-      value: Level5
-      objectReference: {fileID: 0}
-    - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
-        type: 3}
-      propertyPath: _levels.Array.data[2]
       value: Level6
       objectReference: {fileID: 0}
     - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
         type: 3}
-      propertyPath: _levels.Array.data[3]
+      propertyPath: _levels.Array.data[1]
       value: Level1
       objectReference: {fileID: 0}
     - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
         type: 3}
-      propertyPath: _levels.Array.data[4]
+      propertyPath: _levels.Array.data[2]
       value: Level2
       objectReference: {fileID: 0}
     - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
         type: 3}
-      propertyPath: _levels.Array.data[5]
-      value: Level3
+      propertyPath: _levels.Array.data[3]
+      value: Level4
       objectReference: {fileID: 0}
     - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
         type: 3}
-      propertyPath: _levels.Array.data[6]
+      propertyPath: _levels.Array.data[4]
+      value: Level5
+      objectReference: {fileID: 0}
+    - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
+        type: 3}
+      propertyPath: _levels.Array.data[5]
       value: Level3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
