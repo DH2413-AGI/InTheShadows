@@ -136,6 +136,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5cf25a9902b4d49b8f77134a6edd9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enableLevelSkipMode: 1
+  _startLevelIndex: 0
+  _levels:
+  - Level6
+  - Level1
+  - Level2
+  - Level4
+  - Level5
+  - Level3
 --- !u!1 &217104730
 GameObject:
   m_ObjectHideFlags: 0
