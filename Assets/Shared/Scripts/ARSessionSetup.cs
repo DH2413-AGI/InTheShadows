@@ -10,6 +10,7 @@ public class ARSessionSetup : MonoBehaviour
 
     void Start()
     {
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
         _arSession = this.gameObject.GetComponent<ARSession>();
 
         // If we destory the ARSession object between scenes, the camera needs to be reloaded
