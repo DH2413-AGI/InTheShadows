@@ -12,10 +12,15 @@ public class CharacterMovement : NetworkBehaviour
     [SerializeField] private GameObject _walkingMarkerPrefab;
 
     private bool _shouldWalkToDesiredPosition = false;
-    private Vector3 _desiredPosition;
     private Rigidbody _rigidbody;
     private CharacterController _playerController;
     private GameObject _currentWalkingMarker;
+
+    [SyncVar]
+    private bool _isCurrentlyMoving = false;
+
+    [SyncVar]
+    private Vector3 _desiredPosition;
 
     void Awake()
     {
@@ -25,6 +30,14 @@ public class CharacterMovement : NetworkBehaviour
     void Start()
     {
         this._playerController = this.gameObject.GetComponent<CharacterController>();
+    }
+
+    public Vector3 DesiredWalkingPosition {
+        get => this._desiredPosition;
+    }
+
+    public bool IsMoving {
+        get => this._isCurrentlyMoving;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -62,14 +75,17 @@ public class CharacterMovement : NetworkBehaviour
         if (this._playerController.SpawnModeActivated) return;
         this._desiredPosition = position;
         this._shouldWalkToDesiredPosition = true;
+        this._isCurrentlyMoving = true;
         this.RemoveCurrentWalkingMarker();
         this.SetWalkingMarker(position);
         this._playerController.HideWalkTutorial();
     }
 
+    [Command(requiresAuthority=false)]
     public void UnsetDesiredPosition()
     {
         this._shouldWalkToDesiredPosition = false;
+        this._isCurrentlyMoving = false;
         this._desiredPosition = Vector3.zero;
         this.RemoveCurrentWalkingMarker();
     }
