@@ -14,11 +14,11 @@ public class LevelManager : NetworkBehaviour
     [Header("Level settings")]
     [SerializeField] private int _startLevelIndex = 0;
     [SerializeField] private List<string> _levels;
+    int currentLevelIndex = 0;
 
-    private int _currentLevelIndex = 0;
+    private LevelUIController _levelUIController;
 
     private Pose _levelSpawnPosition = new Pose();
-
 
     public Pose LevelSpawnPosition
     {
@@ -27,7 +27,8 @@ public class LevelManager : NetworkBehaviour
 
     void Start()
     {
-        _currentLevelIndex = _startLevelIndex;
+        _levelUIController = FindObjectOfType<LevelUIController>();
+        currentLevelIndex = _startLevelIndex;
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -69,9 +70,9 @@ public class LevelManager : NetworkBehaviour
 
     public void LoadNextLevel()
     {
-        this._currentLevelIndex++;
-        if (this._currentLevelIndex >= this._levels.Count) return;
-        LoadLevel(this._currentLevelIndex);
+        this.currentLevelIndex++;
+        if (this.currentLevelIndex >= this._levels.Count) return;
+        LoadLevel(this.currentLevelIndex);
     }
 
     public void ResetLevels()
@@ -82,12 +83,31 @@ public class LevelManager : NetworkBehaviour
 
     public void LoadCurrentLevel()
     {
-        this.LoadLevel(this._currentLevelIndex);
+        this.LoadLevel(this.currentLevelIndex);
+    }
+
+    public void LoadNextLevelAfterClear()
+    {
+        ShowLevelClearText();
+        LoadNextLevel();
+    }
+
+    [ClientRpc]
+    private void ShowLevelClearText()
+    {
+        _levelUIController.ShowLevelClearText();
+    }
+
+    [ClientRpc]
+    private void UpdateLevelIndicator(int levelIndex)
+    {
+        _levelUIController.UpdateLevelIndicator(levelIndex);
     }
 
     [Command(requiresAuthority = false)]
     public void LoadLevel(int levelIndex)
     {
+        UpdateLevelIndicator(levelIndex);
         string levelNameToLoad = this._levels[levelIndex];
         var networkManager = FindObjectOfType<NetworkManager>();
         networkManager.ServerChangeScene(levelNameToLoad);

@@ -50,18 +50,3 @@ A - We have scaled the AR camera so that 1 unity in Unity means 1 decimeter in r
 
 * Q - TODO  
 A - TODO
-
-## Build APK for Android
-
-1. Make sure you have installed Android Build Support for Unity in Unity Hub.
-![image](https://user-images.githubusercontent.com/40182097/135980789-b6a3b57a-4d40-49db-804b-41e80662ceba.png)
-
-2. In Unity, go to File->Build Settings. Select Android. 
-![image](https://user-images.githubusercontent.com/40182097/135981096-3b04464c-67c5-4aa8-8a00-802e3d4fd150.png)
-
-   1. To build and save the APK to your computer, press Build
-   1. To build the APK and run it directly on your USB-connected device, select your device in the Run Device dropdown and press Build And Run. 
-      1. If your device doesn't show up, you might need to [enable developer options and USB debugging](https://developer.android.com/studio/debug/dev-options).
-3. Build failing?
-Go to the Console in Unity and check the error message.
-![image](https://user-images.githubusercontent.com/40182097/135982155-f9fccf72-ed9a-4d3d-bb54-191b12afa24a.png)
