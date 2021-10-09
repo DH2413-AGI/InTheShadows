@@ -77,8 +77,8 @@ public class LevelManager : NetworkBehaviour
 
     public void ResetLevels()
     {
-        _currentLevelIndex = _startLevelIndex;
-        this.LoadLevel(this._currentLevelIndex);
+        currentLevelIndex = _startLevelIndex;
+        this.LoadLevel(this.currentLevelIndex);
     }
 
     public void LoadCurrentLevel()
