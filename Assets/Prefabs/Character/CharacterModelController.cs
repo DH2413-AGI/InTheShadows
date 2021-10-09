@@ -36,11 +36,11 @@ public class CharacterModelController : MonoBehaviour
 
     private void LookAtWalkingDirection()
     {
-        Vector3 lookPos = this._characterMovement.DesiredWalkingPosition - this._characterModel.transform.position;
+        Vector3 lookPos = this._characterMovement.DesiredWalkingPosition - this.gameObject.transform.localPosition;
         lookPos.y = 0;
         Quaternion rotation = Quaternion.LookRotation(lookPos);
-        this._characterModel.transform.rotation = Quaternion.Slerp(
-            this._characterModel.transform.rotation, 
+        this._characterModel.transform.localRotation = Quaternion.Slerp(
+            this._characterModel.transform.localRotation, 
             rotation, 
             Time.deltaTime * _rotationDamping
         );
