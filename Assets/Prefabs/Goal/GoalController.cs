@@ -6,6 +6,7 @@ using Mirror;
 public class GoalController : NetworkBehaviour
 {
     private LevelManager _levelManager;
+    public GameObject _levelUI;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,6 @@ public class GoalController : NetworkBehaviour
     {
         if (!isServer) return;
         bool isPlayer = other.gameObject.GetComponent<CharacterController>() != null;
-        this._levelManager.LoadNextLevel();
+        this._levelManager.LoadNextLevelAfterClear();
     }
 }
