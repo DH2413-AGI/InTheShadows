@@ -12,11 +12,7 @@ public class CharacterController : NetworkBehaviour
     [SerializeField] private ShadowDetector _shadowDetector;
     [SerializeField] private ParticleSystem _deathParticles;
 
-    [Tooltip("The color the player has when it spawns and do not have any shadow")]
-    [SerializeField] private Color _spawnColor;
-
-    [Tooltip("The color the player has when it can be controlled and is inside of a shadow")]
-    [SerializeField] private Color _playColor;
+    [SerializeField] private GameObject _spawnCapsule;
 
     [Header("Optional")]
     [SerializeField] private GameObject _walkTutorial;
@@ -117,25 +113,26 @@ public class CharacterController : NetworkBehaviour
     private void TogglePlayerVisibility(bool show)
     {
         this._playerModel.SetActive(show);
-        //TODO: Add visiblity logic
-        // this._outline.enabled = show;
-        // this._meshRenderer.enabled = show;
     }
 
     private void DisabledSpawnMode()
     {
-        this._spawnModeActivated = false;
-        SetPlayerColor(this._playColor);
         Debug.Log("Disable Spawn Mode");
+        this._spawnModeActivated = false;
+        Animator spawnCapsuleAnimator = _spawnCapsule.GetComponent<Animator>();
+        spawnCapsuleAnimator.ResetTrigger("ShowSpawnCapsule");
+        spawnCapsuleAnimator.SetTrigger("HideSpawnCapsule");
         _animator.ResetTrigger("ShowText");
         _animator.SetTrigger("HideText");
     }
 
     private void EnableSpawnMode() 
     {
-        this._spawnModeActivated = true;
-        SetPlayerColor(this._spawnColor);
         Debug.Log("Enable Spawn Mode");
+        Animator spawnCapsuleAnimator = _spawnCapsule.GetComponent<Animator>();
+        this._spawnModeActivated = true;
+        spawnCapsuleAnimator.ResetTrigger("HideSpawnCapsule");
+        spawnCapsuleAnimator.SetTrigger("ShowSpawnCapsule");
         _animator.ResetTrigger("HideText");
         _animator.SetTrigger("ShowText");
     }
