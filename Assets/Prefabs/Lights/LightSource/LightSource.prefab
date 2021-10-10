@@ -48,7 +48,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.91290617, b: 0.8443396, a: 1}
   m_Intensity: 1
-  m_Range: 30
+  m_Range: 50
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -425,7 +425,6 @@ GameObject:
   - component: {fileID: 5357348495811334207}
   - component: {fileID: 3454791643743456937}
   - component: {fileID: 1804787047303250039}
-  - component: {fileID: 5768400682083451307}
   m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
@@ -510,20 +509,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5768400682083451307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7671628133900081756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: a8d314d48a9bc404f8c6f2f3c4755d74, type: 2}
-  isGlobal: 1
-  blendDistance: 0
-  weight: 1
-  priority: 0
