@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 using UnityEngine.XR.ARFoundation;
 using Mirror;
@@ -11,47 +12,45 @@ public class CharacterController : NetworkBehaviour
     [SerializeField] private GameObject _playerModel;
     [SerializeField] private ShadowDetector _shadowDetector;
     [SerializeField] private ParticleSystem _deathParticles;
-
     [SerializeField] private GameObject _spawnCapsule;
+    [SerializeField] private float _playerStartHealth = 1.5f;
+    [SerializeField] private Image _healthBar;
+    [SerializeField] private Animator _heathUIAnimator;
 
     [Header("Optional")]
     [SerializeField] private GameObject _walkTutorial;
-    private bool _hasShownWalkTutorial = false;
-    
-    
-    private Vector3 _spawnPosition;
 
+    private bool _hasShownWalkTutorial = false;
+    private Vector3 _spawnPosition;
     private bool _spawnModeActivated = true;
     private bool _deathOngoing = false;
-
-    // private MeshRenderer _meshRenderer;
-    // private Outline _outline;
-    // private Material _material;
     private CharacterMovement _playerMovement;
+    private Animator _needShadowAnimator;
 
-
-    private Animator _animator;
+    [SyncVar]
+    private float _currentHealth = 0;
 
     public bool SpawnModeActivated {
         get => _spawnModeActivated;
     }
 
+    public float CurrentHealth {
+        get => _currentHealth;
+    }
+
+
     private void Awake()
     {
 
-        // this._meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
-        // this._outline = this.gameObject.GetComponent<Outline>();
-        // this._material = this.gameObject.GetComponent<Renderer>().material;
         this._playerMovement = this.gameObject.GetComponent<CharacterMovement>();
-        this._animator = this.gameObject.GetComponent<Animator>();
+        this._needShadowAnimator = this.gameObject.GetComponent<Animator>();
     }
 
     private void Start()
     {
+        this._currentHealth = this._playerStartHealth;
         this._spawnPosition = this.gameObject.transform.localPosition;
-        _shadowDetector.OnLeavingShadow += this.Die;
-        _shadowDetector.OnEnterShadow += this.DisabledSpawnMode;
-        _shadowDetector.OnEnterShadow += this.ShowWalkTutorial;
+        this._shadowDetector.OnEnterShadow += this.OnEnterShadow;
         
         this.EnableSpawnMode();
     }
@@ -59,7 +58,42 @@ public class CharacterController : NetworkBehaviour
 
     private void Update() 
     {
+        this.HandlePlayerHealth();
+        _healthBar.fillAmount = this._currentHealth / this._playerStartHealth;
+        this._heathUIAnimator.SetBool(
+            "ShowHealthUI", 
+            this._currentHealth < this._playerStartHealth && this._currentHealth > 0.0f
+        );
     }
+
+    private void HandlePlayerHealth() 
+    {
+        if (!isServer) return;
+        if (this._spawnModeActivated) return;
+        if (!this._shadowDetector.IsInsideShadow()) {
+            if (this._currentHealth > 0.0f) {
+                this._currentHealth -= Time.deltaTime;
+            }
+        }
+        else {
+            if (this._currentHealth < this._playerStartHealth) {
+                // The health should regenerate faster than getting hurt 
+                this._currentHealth += Time.deltaTime * 2.0f;
+            }
+        }
+
+        if (this._currentHealth <= 0.0f)
+        {
+            this.Die();
+        }
+    }
+
+    private void OnEnterShadow()
+    {
+        this.DisabledSpawnMode();
+        this.ShowWalkTutorial();
+    }
+
 
     private void ShowWalkTutorial()
     {
@@ -92,6 +126,8 @@ public class CharacterController : NetworkBehaviour
    private IEnumerator Respawn()
     {
         yield return new WaitForSeconds(1.0f);
+
+        this._currentHealth = this._playerStartHealth;
         this._deathOngoing = false;
         this.TogglePlayerVisibility(true);
         if (!this._shadowDetector.IsInsideShadow())  
@@ -122,8 +158,8 @@ public class CharacterController : NetworkBehaviour
         Animator spawnCapsuleAnimator = _spawnCapsule.GetComponent<Animator>();
         spawnCapsuleAnimator.ResetTrigger("ShowSpawnCapsule");
         spawnCapsuleAnimator.SetTrigger("HideSpawnCapsule");
-        _animator.ResetTrigger("ShowText");
-        _animator.SetTrigger("HideText");
+        _needShadowAnimator.ResetTrigger("ShowText");
+        _needShadowAnimator.SetTrigger("HideText");
     }
 
     private void EnableSpawnMode() 
@@ -133,8 +169,8 @@ public class CharacterController : NetworkBehaviour
         this._spawnModeActivated = true;
         spawnCapsuleAnimator.ResetTrigger("HideSpawnCapsule");
         spawnCapsuleAnimator.SetTrigger("ShowSpawnCapsule");
-        _animator.ResetTrigger("HideText");
-        _animator.SetTrigger("ShowText");
+        _needShadowAnimator.ResetTrigger("HideText");
+        _needShadowAnimator.SetTrigger("ShowText");
     }
 
     private void SetPlayerColor(Color color)
