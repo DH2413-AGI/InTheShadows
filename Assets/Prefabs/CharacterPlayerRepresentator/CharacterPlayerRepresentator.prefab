@@ -9,12 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2177012321036218755}
-  - component: {fileID: 3630430344375747733}
   - component: {fileID: 9149374796042812433}
   - component: {fileID: 246983194876795210}
   - component: {fileID: 3082712030112459712}
   m_Layer: 0
-  m_Name: LightSource
+  m_Name: CharacterPlayerRepresentator
   m_TagString: LightSource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,68 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &3630430344375747733
-Light:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3413982860626777294}
-  m_Enabled: 1
-  serializedVersion: 10
-  m_Type: 2
-  m_Shape: 0
-  m_Color: {r: 1, g: 0.91290617, b: 0.8443396, a: 1}
-  m_Intensity: 1
-  m_Range: 30
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 1
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-    m_CullingMatrixOverride:
-      e00: 1
-      e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
-    m_UseCullingMatrixOverride: 0
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingLayerMask: 1
-  m_Lightmapping: 1
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_UseBoundingSphereOverride: 0
-  m_UseViewFrustumForShadowCasterCull: 1
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
 --- !u!114 &9149374796042812433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,7 +50,7 @@ MonoBehaviour:
   syncInterval: 0.1
   _visuals: {fileID: 4693181590337928014}
   _visualsOffset: {x: 0, y: -1.5, z: 0}
-  PlayerToFollow: 0
+  PlayerToFollow: 1
 --- !u!114 &246983194876795210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,7 +66,7 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: ebcb41d2f67a59d458048d2c1dbc9a57
+  m_AssetId: 6999420ce3b883f48a154c5a532f03e3
   hasSpawned: 0
 --- !u!114 &3082712030112459712
 MonoBehaviour:
@@ -354,7 +291,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 115}
-  m_SizeDelta: {x: 400, y: 200}
+  m_SizeDelta: {x: 429.12, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6700383767710266130
 CanvasRenderer:
@@ -397,7 +334,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.7
-  m_Text: Player one
+  m_Text: Player Two
 --- !u!114 &1207658848494659386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,7 +411,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 68d70409f17da456a900bcc418469686, type: 2}
+  - {fileID: 2100000, guid: ee36cfa1fb281d144bb87b9fbb3f62bb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

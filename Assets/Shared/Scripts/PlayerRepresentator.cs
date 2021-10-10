@@ -1,17 +1,17 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class LightSource : NetworkBehaviour
+public class PlayerRepresentator : NetworkBehaviour
 {
-
     private PlayerSelectManager _playerSelectManager;
     private LevelManager _levelManager;
-    private GameObject _followTarget;
 
     [SerializeField] private GameObject _visuals;
     [SerializeField] private Vector3 _visualsOffset;
+    [SerializeField] private Character PlayerToFollow;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +24,7 @@ public class LightSource : NetworkBehaviour
             this._levelManager.LevelSpawnPosition.rotation
         );
 
-        if (_playerSelectManager.ChosenCharacter == Character.Light) 
+        if (_playerSelectManager.ChosenCharacter == PlayerToFollow) 
         {
             _visuals.SetActive(false);
         }
@@ -34,7 +34,7 @@ public class LightSource : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_playerSelectManager.ChosenCharacter != Character.Light) return;
+        if (_playerSelectManager.ChosenCharacter != PlayerToFollow) return;
         if (Camera.main == null) return;
         
         UpdatePosition(
@@ -52,3 +52,4 @@ public class LightSource : NetworkBehaviour
     }
 
 }
+ 
