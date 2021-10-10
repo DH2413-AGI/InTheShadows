@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657832, g: 0.496414, b: 0.5748184, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657862, g: 0.49641412, b: 0.5748185, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1077,12 +1077,12 @@ PrefabInstance:
     - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
         type: 3}
       propertyPath: _levels.Array.data[1]
-      value: Level6
+      value: Level2
       objectReference: {fileID: 0}
     - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
         type: 3}
       propertyPath: _levels.Array.data[2]
-      value: Level2
+      value: Level3
       objectReference: {fileID: 0}
     - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
         type: 3}
@@ -1097,7 +1097,7 @@ PrefabInstance:
     - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
         type: 3}
       propertyPath: _levels.Array.data[5]
-      value: Level3
+      value: Level6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5eb09224672014840ab0a896cf6977f8, type: 3}
