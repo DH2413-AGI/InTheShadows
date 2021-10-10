@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2177012321036218755}
   - component: {fileID: 3630430344375747733}
-  - component: {fileID: -3106269299176552382}
+  - component: {fileID: 9149374796042812433}
   - component: {fileID: 246983194876795210}
   - component: {fileID: 3082712030112459712}
   m_Layer: 0
@@ -47,8 +47,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.91290617, b: 0.8443396, a: 1}
-  m_Intensity: 0.75
-  m_Range: 30
+  m_Intensity: 1
+  m_Range: 50
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -86,7 +86,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -97,7 +97,7 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &-3106269299176552382
+--- !u!114 &9149374796042812433
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,13 +106,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3413982860626777294}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 740f3bbf172ce435b994aa730f8328f1, type: 3}
+  m_Script: {fileID: 11500000, guid: b1e581da0bf980b43a1a405bd83d5b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
   _visuals: {fileID: 4693181590337928014}
   _visualsOffset: {x: 0, y: -1.5, z: 0}
+  PlayerToFollow: 0
 --- !u!114 &246983194876795210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,7 +425,7 @@ GameObject:
   - component: {fileID: 5357348495811334207}
   - component: {fileID: 3454791643743456937}
   - component: {fileID: 1804787047303250039}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
