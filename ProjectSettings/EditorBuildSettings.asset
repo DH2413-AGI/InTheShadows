@@ -23,12 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Level4/Level4.unity
     guid: c14e9e14885844d179317c03cf240888
-  - enabled: 1
-    path: Assets/Scenes/Levels/Level5/Level5.unity
-    guid: 3f40719a30c974d0f9ee4dcba4eb7361
-  - enabled: 1
-    path: Assets/Scenes/Levels/Level6/Level6.unity
-    guid: 19ec5e332176b486dab4376c270dde7c
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,
       type: 2}
