@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657832, g: 0.49641383, b: 0.57481825, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657862, g: 0.49641412, b: 0.5748185, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1066,23 +1066,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
         type: 3}
-      propertyPath: _enableResetMode
-      value: 1
+      propertyPath: _levels.Array.size
+      value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 3159346452469323614, guid: 5eb09224672014840ab0a896cf6977f8,
+    - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
         type: 3}
-      propertyPath: m_UiScaleMode
-      value: 1
+      propertyPath: _levels.Array.data[0]
+      value: Level1
       objectReference: {fileID: 0}
-    - target: {fileID: 4347074602306387155, guid: 5eb09224672014840ab0a896cf6977f8,
+    - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
         type: 3}
-      propertyPath: sceneId
-      value: 2416307318
+      propertyPath: _levels.Array.data[1]
+      value: Level2
       objectReference: {fileID: 0}
-    - target: {fileID: 4350272110667099244, guid: 5eb09224672014840ab0a896cf6977f8,
+    - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
         type: 3}
-      propertyPath: sceneId
-      value: 3743353535
+      propertyPath: _levels.Array.data[2]
+      value: Level3
+      objectReference: {fileID: 0}
+    - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
+        type: 3}
+      propertyPath: _levels.Array.data[3]
+      value: Level4
+      objectReference: {fileID: 0}
+    - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
+        type: 3}
+      propertyPath: _levels.Array.data[4]
+      value: Level5
+      objectReference: {fileID: 0}
+    - target: {fileID: 16332920999762359, guid: 5eb09224672014840ab0a896cf6977f8,
+        type: 3}
+      propertyPath: _levels.Array.data[5]
+      value: Level6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5eb09224672014840ab0a896cf6977f8, type: 3}
