@@ -48,17 +48,20 @@ public class CharacterController : NetworkBehaviour
 
     private void Start()
     {
-        this._currentHealth = this._playerStartHealth;
         this._spawnPosition = this.gameObject.transform.localPosition;
-        this._shadowDetector.OnEnterShadow += this.OnEnterShadow;
         
-        this.EnableSpawnMode();
+        if (isServer) {
+            this._currentHealth = this._playerStartHealth;
+            this._shadowDetector.OnEnterShadow += this.OnEnterShadow;
+            this.RpcEnableSpawnMode();
+        }
     }
 
 
     private void Update() 
     {
         this.HandlePlayerHealth();
+
         _healthBar.fillAmount = this._currentHealth / this._playerStartHealth;
         this._heathUIAnimator.SetBool(
             "ShowHealthUI", 
@@ -82,15 +85,15 @@ public class CharacterController : NetworkBehaviour
             }
         }
 
-        if (this._currentHealth <= 0.0f)
+        if (this._currentHealth <= 0.0f && !_deathOngoing)
         {
-            this.Die();
+            this.CommandDie();
         }
     }
 
     private void OnEnterShadow()
     {
-        this.DisabledSpawnMode();
+        this.RpcDisabledSpawnMode();
         this.ShowWalkTutorial();
     }
 
@@ -108,50 +111,48 @@ public class CharacterController : NetworkBehaviour
         this._walkTutorial.SetActive(false);
     }
 
-    public void Die()
+    [Command(requiresAuthority = false)]
+    public void CommandDie()
     {
         if (_deathOngoing) return;
         this._deathOngoing = true;
 
-        this.RunDeathEffects();
-        this.TogglePlayerVisibility(false);
+        this.RpcRunDeathEffects();
+        this.RpcTogglePlayerVisibility(false);
         StartCoroutine(this.Respawn());
 
-        if (isServer) 
-        {
-            this._playerMovement.UnsetDesiredPosition();
-        }
+        this._playerMovement.UnsetDesiredPosition();
     }
 
-   private IEnumerator Respawn()
+    private IEnumerator Respawn()
     {
         yield return new WaitForSeconds(1.0f);
 
         this._currentHealth = this._playerStartHealth;
         this._deathOngoing = false;
-        this.TogglePlayerVisibility(true);
+        this.RpcTogglePlayerVisibility(true);
         if (!this._shadowDetector.IsInsideShadow())  
         {
-            this.EnableSpawnMode();
+            this.RpcEnableSpawnMode();
         }
 
-        if (isServer) 
-        {
-            this.gameObject.transform.localPosition = this._spawnPosition;
-        }
+        this.gameObject.transform.localPosition = this._spawnPosition;
     }
 
-    private void RunDeathEffects()
+    [ClientRpc]
+    private void RpcRunDeathEffects()
     {
         this._deathParticles.Play();
     }
 
-    private void TogglePlayerVisibility(bool show)
+    [ClientRpc]
+    private void RpcTogglePlayerVisibility(bool show)
     {
         this._playerModel.SetActive(show);
     }
 
-    private void DisabledSpawnMode()
+    [ClientRpc]
+    private void RpcDisabledSpawnMode()
     {
         Debug.Log("Disable Spawn Mode");
         this._spawnModeActivated = false;
@@ -162,7 +163,8 @@ public class CharacterController : NetworkBehaviour
         _needShadowAnimator.SetTrigger("HideText");
     }
 
-    private void EnableSpawnMode() 
+    [ClientRpc]
+    private void RpcEnableSpawnMode() 
     {
         Debug.Log("Enable Spawn Mode");
         Animator spawnCapsuleAnimator = _spawnCapsule.GetComponent<Animator>();
@@ -171,13 +173,5 @@ public class CharacterController : NetworkBehaviour
         spawnCapsuleAnimator.SetTrigger("ShowSpawnCapsule");
         _needShadowAnimator.ResetTrigger("HideText");
         _needShadowAnimator.SetTrigger("ShowText");
-    }
-
-    private void SetPlayerColor(Color color)
-    {
-        //TODO: Add some other effect
-        // this._outline.OutlineColor = color;
-        // this._material.color = color;
-        // this._material.SetColor("_EmissionColor", color * 0.75f);
     }
 }
