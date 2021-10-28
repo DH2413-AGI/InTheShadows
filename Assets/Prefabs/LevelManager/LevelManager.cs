@@ -18,12 +18,7 @@ public class LevelManager : NetworkBehaviour
 
     private LevelUIController _levelUIController;
 
-    private Pose _levelSpawnPosition = new Pose();
 
-    public Pose LevelSpawnPosition
-    {
-        get => _levelSpawnPosition;
-    }
 
     void Start()
     {
@@ -60,12 +55,6 @@ public class LevelManager : NetworkBehaviour
         {
             this.ResetLevels();
         }
-    }
-
-
-    public void UpdateLevelSpawnPosition(Pose pose)
-    {
-        this._levelSpawnPosition = pose;
     }
 
     public void LoadNextLevel()

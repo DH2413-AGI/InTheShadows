@@ -21,6 +21,7 @@ public class PlayerSelectManager : NetworkBehaviour
 
     void Start()
     {
+        Debug.Log("PlayerSelectManager");
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -34,16 +35,8 @@ public class PlayerSelectManager : NetworkBehaviour
     private void MarkCharacterAsTaken(Character character)
     {
         this._charactersTaken.Add(character);
-        this.CheckIfReadyToContinueToNextScene();
     }
 
-    private void CheckIfReadyToContinueToNextScene()
-    {
-        var networkManager = FindObjectOfType<NetworkManager>();
-        if (networkManager.numPlayers == this._charactersTaken.Count) {
-            networkManager.ServerChangeScene("LevelPlacement");
-        }
-    }
 }
 
 public enum Character {

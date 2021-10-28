@@ -6,7 +6,7 @@ public class LevelPositioner : MonoBehaviour
 {
     void Start()
     {
-        Pose spawnPose = FindObjectOfType<LevelManager>().LevelSpawnPosition;
+        Pose spawnPose = FindObjectOfType<LevelPositionManager>().LevelSpawnPosition;
         this.gameObject.transform.SetPositionAndRotation(spawnPose.position, spawnPose.rotation);
     }
 }

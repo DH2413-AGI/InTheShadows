@@ -7,7 +7,7 @@ using Mirror;
 public class PlayerRepresentator : NetworkBehaviour
 {
     private PlayerSelectManager _playerSelectManager;
-    private LevelManager _levelManager;
+    private LevelPositionManager _levelPositionManager;
 
     [SerializeField] private GameObject _visuals;
     [SerializeField] private Vector3 _visualsOffset;
@@ -17,30 +17,29 @@ public class PlayerRepresentator : NetworkBehaviour
     void Start()
     {
         this._playerSelectManager = FindObjectOfType<PlayerSelectManager>();
-        this._levelManager = FindObjectOfType<LevelManager>();
+        this._levelPositionManager = FindObjectOfType<LevelPositionManager>();
 
         this.gameObject.transform.SetPositionAndRotation(
-            this._levelManager.LevelSpawnPosition.position,
-            this._levelManager.LevelSpawnPosition.rotation
+            this._levelPositionManager.LevelSpawnPosition.position,
+            this._levelPositionManager.LevelSpawnPosition.rotation
         );
 
-        if (_playerSelectManager.ChosenCharacter == PlayerToFollow) 
-        {
-            _visuals.SetActive(false);
-        }
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        _visuals.SetActive(_playerSelectManager.ChosenCharacter != PlayerToFollow);
+
         if (_playerSelectManager.ChosenCharacter != PlayerToFollow) return;
         if (Camera.main == null) return;
         
         UpdatePosition(
-            Camera.main.transform.position - this._levelManager.LevelSpawnPosition.position,
+            Camera.main.transform.position - this._levelPositionManager.LevelSpawnPosition.position,
             Camera.main.transform.rotation,
-            Quaternion.Inverse(this._levelManager.LevelSpawnPosition.rotation)
+            Quaternion.Inverse(this._levelPositionManager.LevelSpawnPosition.rotation)
         );
     }
 

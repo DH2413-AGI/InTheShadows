@@ -47,7 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  _enableLevelSkipMode: 0
+  _enableLevelSkipMode: 1
+  _enableResetMode: 0
   _startLevelIndex: 0
   _levels:
   - Level1

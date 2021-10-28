@@ -9,9 +9,8 @@ using Mirror;
 [RequireComponent(typeof(ARPlaneFinder))]
 public class LevelPlacementController : MonoBehaviour
 {
-    [SerializeField] private PlayerPlacedLevelTracker _playerReadyTracker;
 
-    [SerializeField] private LevelManager _levelManager;
+    [SerializeField] private LevelPositionManager _levelPositionManager;
 
     private ARSessionSetup _arSessionSetup;
 
@@ -43,9 +42,7 @@ public class LevelPlacementController : MonoBehaviour
         _levelPlaceholder.SetActive(false);
 
         _arSessionSetup = FindObjectOfType<ARSessionSetup>();
-
-        _playerReadyTracker.OnStart += () => StartCoroutine(_arSessionSetup.CheckForARSupport(this.PlaceLevelDesktop));
-        // StartCoroutine(_arSessionSetup.CheckForARSupport(this.PlaceLevelDesktop));
+        StartCoroutine(_arSessionSetup.CheckForARSupport(this.PlaceLevelDesktop));
     }
 
     void Update()
@@ -69,13 +66,14 @@ public class LevelPlacementController : MonoBehaviour
         if (!this.LatestARPlaneSearch.IsReasonableForLevelPlacement) return;
         
         _hasPlacedLevel = true;
-        if (_levelManager != null) {
-            _levelManager.UpdateLevelSpawnPosition(new Pose(
+        if (_levelPositionManager != null) {
+            _levelPositionManager.UpdateLevelSpawnPosition(new Pose(
                 this.LatestARPlaneSearch.PlaneHitPosition, 
                 this.LatestARPlaneSearch.CameraRotationTowardsPlane
             ));
         }
-        this._playerReadyTracker.MarkPlayerPlacedLevel();
+        this.MoveToNextScene();
+        
     }
 
     private void PlaceLevelDesktop(ARSessionState arSessionState)
@@ -83,8 +81,8 @@ public class LevelPlacementController : MonoBehaviour
         if (arSessionState != ARSessionState.Unsupported) return;
         Debug.Log("Place level desktop");
         _hasPlacedLevel = true;
-        this._levelManager.UpdateLevelSpawnPosition(new Pose());
-        this._playerReadyTracker.MarkPlayerPlacedLevel();
+        this._levelPositionManager.UpdateLevelSpawnPosition(new Pose());
+        this.MoveToNextScene();
     }
 
     private void SearchForPlane()
@@ -105,4 +103,8 @@ public class LevelPlacementController : MonoBehaviour
         }
     }
 
+    private void MoveToNextScene()
+    {
+        SceneManager.LoadScene("JoinGameSetup");
+    }
 }

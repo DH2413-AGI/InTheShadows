@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Mirror;
 
-public class PlayerSelectUIController : MonoBehaviour
+public class PlayerSelectUIController : NetworkBehaviour
 {
 
     [SerializeField] private Button _lightPlayerButton;
@@ -13,36 +13,45 @@ public class PlayerSelectUIController : MonoBehaviour
     [SerializeField] private Button _characterPlayerButton;
     [SerializeField] private GameObject _charecterPlayerTakenText;
     [SerializeField] private Button _inspectorPlayerButton;
+    [SerializeField] private GameObject _uiVisuals;
 
-    [SerializeField] private PlayerSelectManager _playerSelectManager;
-    [SerializeField] private GameObject _waitingForPlayersUI;
+    private PlayerSelectManager _playerSelectManager;
 
     void Start()
     {
         _lightPlayerButton.onClick.AddListener(this.JoinAsLightPlayer);
         _characterPlayerButton.onClick.AddListener(this.JoinAsCharacterPlayer);
         _inspectorPlayerButton.onClick.AddListener(this.JoinAsInspectorPlayer);
+        _playerSelectManager = FindObjectOfType<PlayerSelectManager>();
+        DontDestroyOnLoad(this.gameObject);
+    }
+
+    void Update()
+    {
+        this.LookForTakenPlayers();
     }
 
     private void JoinAsLightPlayer()
     {
+        if (this._playerSelectManager.CharacterAlreadyTaken(Character.Light)) return;
         this._playerSelectManager.ChooseCharacter(Character.Light);
         this.MarkLightPlayerTaken();
-        this.ShowWaitingUI();
+        this.HideUI();
     }
 
     private void JoinAsCharacterPlayer()
     {
+        if (this._playerSelectManager.CharacterAlreadyTaken(Character.Character)) return;
         this._playerSelectManager.ChooseCharacter(Character.Character);
         this.MarkCharacterPlayerTaken();
-        this.ShowWaitingUI();
+        this.HideUI();
     }
 
     private void JoinAsInspectorPlayer()
     {
         this._inspectorPlayerButton.interactable = false;
         this._playerSelectManager.ChooseCharacter(Character.Inspector);
-        this.ShowWaitingUI();
+        this.HideUI();
     }
 
     private void MarkLightPlayerTaken()
@@ -57,11 +66,6 @@ public class PlayerSelectUIController : MonoBehaviour
         this._charecterPlayerTakenText.SetActive(true);
     }
 
-    void Update()
-    {
-        this.LookForTakenPlayers();
-    }
-
     void LookForTakenPlayers()
     {
         if (this._playerSelectManager.CharacterAlreadyTaken(Character.Light)) 
@@ -74,9 +78,9 @@ public class PlayerSelectUIController : MonoBehaviour
         }
     }
 
-    private void ShowWaitingUI()
+    private void HideUI()
     {
-        this._waitingForPlayersUI.SetActive(true);
+        this._uiVisuals.SetActive(false);
     }
 
 }
