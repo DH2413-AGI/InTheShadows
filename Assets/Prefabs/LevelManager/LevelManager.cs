@@ -22,6 +22,7 @@ public class LevelManager : NetworkBehaviour
 
     void Start()
     {
+        Debug.Log("LevelManager Start!");
         _levelUIController = FindObjectOfType<LevelUIController>();
         currentLevelIndex = _startLevelIndex;
         DontDestroyOnLoad(this.gameObject);
@@ -41,11 +42,13 @@ public class LevelManager : NetworkBehaviour
 
     public void CheckForSkipInput()
     {
+        if (!isServer) return;
         bool mobileSkip = Input.touchCount == 2 && Input.GetTouch(1).phase == TouchPhase.Began;
         bool desktopSkip = Input.GetKeyDown(KeyCode.Return);
         if (mobileSkip | desktopSkip)
         {
-            this.LoadNextLevel();
+            Debug.Log("Load next level");
+            this.LoadNextLevelAfterClear();
         }
     }
 

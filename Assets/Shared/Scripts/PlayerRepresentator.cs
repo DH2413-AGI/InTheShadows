@@ -23,14 +23,12 @@ public class PlayerRepresentator : NetworkBehaviour
             this._levelPositionManager.LevelSpawnPosition.position,
             this._levelPositionManager.LevelSpawnPosition.rotation
         );
-
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!NetworkClient.ready) return;
         _visuals.SetActive(_playerSelectManager.ChosenCharacter != PlayerToFollow);
 
         if (_playerSelectManager.ChosenCharacter != PlayerToFollow) return;

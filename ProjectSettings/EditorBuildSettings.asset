@@ -30,6 +30,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/Level4/Level4.unity
     guid: c14e9e14885844d179317c03cf240888
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: a21550366112a4160916c7c0351334fd,
+      type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,
       type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 49e1300caf190a04386f1bb2076459b7,

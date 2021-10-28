@@ -19,6 +19,7 @@
     "com.unity.xr.arkit": "4.1.7",
     "com.unity.xr.magicleap": "6.2.2",
     "com.unity.xr.management": "4.1.0",
+    "com.unity.xr.oculus": "1.10.0",
     "com.unity.xr.windowsmr": "5.3.0",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
