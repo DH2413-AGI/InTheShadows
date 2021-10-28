@@ -27,11 +27,16 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/Level2/Level2.unity
     guid: 6a56bf722ddb01747852226e05bc646e
   - enabled: 1
+    path: Assets/Scenes/Levels/Level3/Level3.unity
+    guid: 83e49d8e52be7f644af967b488c2df4e
+  - enabled: 1
     path: Assets/Scenes/Levels/Level4/Level4.unity
     guid: c14e9e14885844d179317c03cf240888
+  - enabled: 1
+    path: Assets/Scenes/Levels/AllLevelCompleted/AllLevelsCompleted.unity
+    guid: bd60d42ea205ffb4c91bbb9e9f20691f
   m_configObjects:
-    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: a21550366112a4160916c7c0351334fd,
-      type: 2}
+    Unity.XR.Oculus.Settings: {fileID: 0}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,
       type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 49e1300caf190a04386f1bb2076459b7,
