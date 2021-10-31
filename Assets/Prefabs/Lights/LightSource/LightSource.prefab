@@ -113,7 +113,7 @@ MonoBehaviour:
   syncInterval: 0.1
   _visuals: {fileID: 4693181590337928014}
   _visualsOffset: {x: 0, y: -1.5, z: 0}
-  PlayerToFollow: 0
+  PlayerToFollow: 1
 --- !u!114 &246983194876795210
 MonoBehaviour:
   m_ObjectHideFlags: 0

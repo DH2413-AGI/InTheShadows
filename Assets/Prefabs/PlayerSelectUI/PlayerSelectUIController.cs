@@ -35,7 +35,7 @@ public class PlayerSelectUIController : NetworkBehaviour
     {
         if (this._playerSelectManager.CharacterAlreadyTaken(Character.Light)) return;
         this._playerSelectManager.ChooseCharacter(Character.Light);
-        this.MarkLightPlayerTaken();
+        this.ToggleLightPlayerTaken(true);
         this.HideUI();
     }
 
@@ -43,7 +43,7 @@ public class PlayerSelectUIController : NetworkBehaviour
     {
         if (this._playerSelectManager.CharacterAlreadyTaken(Character.Character)) return;
         this._playerSelectManager.ChooseCharacter(Character.Character);
-        this.MarkCharacterPlayerTaken();
+        this.ToggleCharacterPlayerTaken(true);
         this.HideUI();
     }
 
@@ -54,28 +54,22 @@ public class PlayerSelectUIController : NetworkBehaviour
         this.HideUI();
     }
 
-    private void MarkLightPlayerTaken()
+    private void ToggleLightPlayerTaken(bool isTaken)
     {
-        this._lightPlayerButton.interactable = false;
-        this._lightPlayerTakenText.SetActive(true);
+        this._lightPlayerButton.interactable = !isTaken;
+        this._lightPlayerTakenText.SetActive(isTaken);
     }
 
-    private void MarkCharacterPlayerTaken()
+    private void ToggleCharacterPlayerTaken(bool isTaken)
     {
-        this._characterPlayerButton.interactable = false;
-        this._charecterPlayerTakenText.SetActive(true);
+        this._characterPlayerButton.interactable = !isTaken;
+        this._charecterPlayerTakenText.SetActive(isTaken);
     }
 
     void LookForTakenPlayers()
     {
-        if (this._playerSelectManager.CharacterAlreadyTaken(Character.Light)) 
-        {
-            this.MarkLightPlayerTaken();
-        }
-        if (this._playerSelectManager.CharacterAlreadyTaken(Character.Character)) 
-        {
-            this.MarkCharacterPlayerTaken();
-        }
+        this.ToggleCharacterPlayerTaken(this._playerSelectManager.CharacterAlreadyTaken(Character.Character));
+        this.ToggleLightPlayerTaken(this._playerSelectManager.CharacterAlreadyTaken(Character.Light));
     }
 
     private void HideUI()

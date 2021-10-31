@@ -5,15 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Setup/Start.unity
-    guid: 2efa74e4d7f234ac1bb2430336d5c48b
   - enabled: 1
     path: Assets/Scenes/Setup/LevelPlacement.unity
     guid: 27965a28e2d194aae8393a44887c7c9a
-  - enabled: 0
-    path: Assets/Scenes/Setup/PlayerSelect.unity
-    guid: 935fd91b215c6453793cba1d5ddd91c7
   - enabled: 1
     path: Assets/Scenes/Setup/JoinGameSetup.unity
     guid: a37d2c03a5a974089a1702bfd934cc5a
@@ -35,8 +29,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/AllLevelCompleted/AllLevelsCompleted.unity
     guid: bd60d42ea205ffb4c91bbb9e9f20691f
+  - enabled: 1
+    path: Assets/Scenes/Setup/Offline.unity
+    guid: 7e74e19ada5b54d57ad9ddc313401c09
   m_configObjects:
-    Unity.XR.Oculus.Settings: {fileID: 0}
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: a21550366112a4160916c7c0351334fd,
+      type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,
       type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 49e1300caf190a04386f1bb2076459b7,
