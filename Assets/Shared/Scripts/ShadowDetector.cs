@@ -30,20 +30,23 @@ public class ShadowDetector : MonoBehaviour
 
     void Update()
     {
-        if (_cameraLight == null) {
+        if (_cameraLight == null)
+        {
             this.TryToFindLight();
             return;
         }
 
         bool currentlyInsideShadow = this.IsInsideShadow();
-        if(currentlyInsideShadow && !_wasInsideShadow ) {
+        if (currentlyInsideShadow && !_wasInsideShadow)
+        {
             _wasInsideShadow = true;
             if (this.OnEnterShadow != null) this.OnEnterShadow.Invoke();
-        } 
-        if(!currentlyInsideShadow && _wasInsideShadow ) {
+        }
+        if (!currentlyInsideShadow && _wasInsideShadow)
+        {
             _wasInsideShadow = false;
             if (this.OnLeavingShadow != null) this.OnLeavingShadow.Invoke();
-        } 
+        }
     }
 
     public bool IsInsideShadow()
