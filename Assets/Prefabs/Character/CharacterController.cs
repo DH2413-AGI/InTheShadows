@@ -27,6 +27,8 @@ public class CharacterController : NetworkBehaviour
     private CharacterMovement _playerMovement;
     private Animator _needShadowAnimator;
 
+    [SerializeField] private List<LightSensor> _lightSensorsRequired;
+
     [SyncVar]
     private float _currentHealth = 0;
 
@@ -53,7 +55,7 @@ public class CharacterController : NetworkBehaviour
         if (isServer) {
             this._currentHealth = this._playerStartHealth;
             this._shadowDetector.OnEnterShadow += this.OnEnterShadow;
-            this.RpcEnableSpawnMode();
+            this.RpcEnableSpawnMode(true);
         }
     }
 
@@ -64,10 +66,26 @@ public class CharacterController : NetworkBehaviour
 
         _healthBar.fillAmount = this._currentHealth / this._playerStartHealth;
         this._heathUIAnimator.SetBool(
-            "ShowHealthUI", 
+            "ShowHealthUI",
             this._currentHealth < this._playerStartHealth && this._currentHealth > 0.0f
         );
+
+        this.CheckLightSensors();
     }
+
+    private void CheckLightSensors()
+    {
+        if (!isServer) return;
+        if (!this._shadowDetector.IsInsideShadow()) return;
+        
+        if (!AtLeastOneLightSensorActive() && !SpawnModeActivated) {
+            RpcEnableSpawnMode(false);
+        }
+        if (AtLeastOneLightSensorActive() && SpawnModeActivated) {
+            RpcDisabledSpawnMode();
+        }
+    }
+
 
     private void HandlePlayerHealth() 
     {
@@ -97,6 +115,18 @@ public class CharacterController : NetworkBehaviour
         this.ShowWalkTutorial();
     }
 
+    private bool AtLeastOneLightSensorActive()
+    {
+        // If we have no light sensor connected to this player, always return true
+        if (this._lightSensorsRequired.Count == 0) return true;
+
+        foreach (var lightSensor in this._lightSensorsRequired)
+        {
+            Debug.Log("Light Sensor Has Light: " + lightSensor.HasLight);
+            if (lightSensor.HasLight) return true;
+        }
+        return false;
+    }
 
     private void ShowWalkTutorial()
     {
@@ -133,7 +163,7 @@ public class CharacterController : NetworkBehaviour
         this.RpcTogglePlayerVisibility(true);
         if (!this._shadowDetector.IsInsideShadow())  
         {
-            this.RpcEnableSpawnMode();
+            this.RpcEnableSpawnMode(true);
         }
 
         this.gameObject.transform.localPosition = this._spawnPosition;
@@ -164,14 +194,17 @@ public class CharacterController : NetworkBehaviour
     }
 
     [ClientRpc]
-    private void RpcEnableSpawnMode() 
+    private void RpcEnableSpawnMode(bool showNeedShadowText) 
     {
         Debug.Log("Enable Spawn Mode");
         Animator spawnCapsuleAnimator = _spawnCapsule.GetComponent<Animator>();
         this._spawnModeActivated = true;
         spawnCapsuleAnimator.ResetTrigger("HideSpawnCapsule");
         spawnCapsuleAnimator.SetTrigger("ShowSpawnCapsule");
-        _needShadowAnimator.ResetTrigger("HideText");
-        _needShadowAnimator.SetTrigger("ShowText");
+
+        if (showNeedShadowText) {
+            _needShadowAnimator.ResetTrigger("HideText");
+            _needShadowAnimator.SetTrigger("ShowText");
+        }
     }
 }

@@ -6,7 +6,6 @@ using Mirror;
 public class GoalController : NetworkBehaviour
 {
     private LevelManager _levelManager;
-    public GameObject _levelUI;
 
     // Start is called before the first frame update
     void Start()
