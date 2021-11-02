@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657773, g: 0.49641293, b: 0.57481724, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657862, g: 0.49641412, b: 0.5748185, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -444,7 +444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69cbf9965ad1c4c3b8ffaeb507a09b93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelPositionManager: {fileID: 1630287218}
+  _levelPositionManager: {fileID: 0}
   _levelPlaceholderPrefab: {fileID: 1705518764143778098, guid: cc7b92eaa11414893bc37bc41cc0e95d,
     type: 3}
 --- !u!1 &970294162
@@ -699,18 +699,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 800, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1630287218 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9090916602921277438, guid: b3232c09bec284da3ad6712ca6fc68c2,
-    type: 3}
-  m_PrefabInstance: {fileID: 5120569046101947122}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4623fa34a7c384886951539b601ac18e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2020478871
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,23 +771,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4562b8bfc2112445a865d1840316df26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &5120569046101947122
+--- !u!1001 &766871256759138446
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2912324115267597935, guid: b3232c09bec284da3ad6712ca6fc68c2,
-        type: 3}
-      propertyPath: m_Name
-      value: LevelPositionManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 5180875204308536444, guid: b3232c09bec284da3ad6712ca6fc68c2,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5180875204308536444, guid: b3232c09bec284da3ad6712ca6fc68c2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -848,6 +826,16 @@ PrefabInstance:
     - target: {fileID: 5180875204308536444, guid: b3232c09bec284da3ad6712ca6fc68c2,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 766871256140499652, guid: ac7580d85b1ce416196eccbf2ca30146,
+        type: 3}
+      propertyPath: _waitingForPlayersUI
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 766871256140499654, guid: ac7580d85b1ce416196eccbf2ca30146,
+        type: 3}
+      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

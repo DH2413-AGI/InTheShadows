@@ -32,6 +32,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Setup/Offline.unity
     guid: 7e74e19ada5b54d57ad9ddc313401c09
+  - enabled: 1
+    path: Assets/Scenes/Levels/LevelLightTowers/LevelLightTowers.unity
+    guid: 4b89cc420e8bf48e7aaf722ee05a794c
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: a21550366112a4160916c7c0351334fd,
       type: 2}
