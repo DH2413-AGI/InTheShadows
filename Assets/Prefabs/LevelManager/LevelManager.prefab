@@ -51,11 +51,11 @@ MonoBehaviour:
   _enableResetMode: 0
   _startLevelIndex: 0
   _levels:
-  - NewLevel
   - Level1
   - Level2
   - Level3
   - Level4
+  - LevelLightTowers
   - AllLevelsCompleted
 --- !u!114 &16332920999762358
 MonoBehaviour:

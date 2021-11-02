@@ -444,9 +444,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69cbf9965ad1c4c3b8ffaeb507a09b93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelPositionManager: {fileID: 0}
+  _levelPositionManager: {fileID: 741510662}
   _levelPlaceholderPrefab: {fileID: 1705518764143778098, guid: cc7b92eaa11414893bc37bc41cc0e95d,
     type: 3}
+--- !u!114 &741510662 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9090916602921277438, guid: b3232c09bec284da3ad6712ca6fc68c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 766871256759138446}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4623fa34a7c384886951539b601ac18e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &970294162
 GameObject:
   m_ObjectHideFlags: 0

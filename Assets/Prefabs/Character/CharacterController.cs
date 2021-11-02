@@ -23,6 +23,7 @@ public class CharacterController : NetworkBehaviour
     private bool _hasShownWalkTutorial = false;
     private Vector3 _spawnPosition;
     private bool _spawnModeActivated = true;
+    private bool _lockModeActivated = true;
     private bool _deathOngoing = false;
     private CharacterMovement _playerMovement;
     private Animator _needShadowAnimator;
@@ -34,6 +35,10 @@ public class CharacterController : NetworkBehaviour
 
     public bool SpawnModeActivated {
         get => _spawnModeActivated;
+    }
+
+    public bool PlayerCanWalk {
+        get => !_spawnModeActivated && !_lockModeActivated;
     }
 
     public float CurrentHealth {
@@ -55,7 +60,7 @@ public class CharacterController : NetworkBehaviour
         if (isServer) {
             this._currentHealth = this._playerStartHealth;
             this._shadowDetector.OnEnterShadow += this.OnEnterShadow;
-            this.RpcEnableSpawnMode(true);
+            this.RpcEnableSpawnMode();
         }
     }
 
@@ -78,11 +83,11 @@ public class CharacterController : NetworkBehaviour
         if (!isServer) return;
         if (!this._shadowDetector.IsInsideShadow()) return;
         
-        if (!AtLeastOneLightSensorActive() && !SpawnModeActivated) {
-            RpcEnableSpawnMode(false);
+        if (!AtLeastOneLightSensorActive() && !_lockModeActivated) {
+            ToggleLockMode(true);
         }
-        if (AtLeastOneLightSensorActive() && SpawnModeActivated) {
-            RpcDisabledSpawnMode();
+        if (AtLeastOneLightSensorActive() && _lockModeActivated) {
+            ToggleLockMode(false);
         }
     }
 
@@ -163,7 +168,7 @@ public class CharacterController : NetworkBehaviour
         this.RpcTogglePlayerVisibility(true);
         if (!this._shadowDetector.IsInsideShadow())  
         {
-            this.RpcEnableSpawnMode(true);
+            this.RpcEnableSpawnMode();
         }
 
         this.gameObject.transform.localPosition = this._spawnPosition;
@@ -184,27 +189,39 @@ public class CharacterController : NetworkBehaviour
     [ClientRpc]
     private void RpcDisabledSpawnMode()
     {
-        Debug.Log("Disable Spawn Mode");
         this._spawnModeActivated = false;
-        Animator spawnCapsuleAnimator = _spawnCapsule.GetComponent<Animator>();
-        spawnCapsuleAnimator.ResetTrigger("ShowSpawnCapsule");
-        spawnCapsuleAnimator.SetTrigger("HideSpawnCapsule");
+        this.ToggleSpawnCapsule(this._spawnModeActivated, this._lockModeActivated);
         _needShadowAnimator.ResetTrigger("ShowText");
         _needShadowAnimator.SetTrigger("HideText");
     }
 
     [ClientRpc]
-    private void RpcEnableSpawnMode(bool showNeedShadowText) 
+    private void RpcEnableSpawnMode() 
     {
-        Debug.Log("Enable Spawn Mode");
-        Animator spawnCapsuleAnimator = _spawnCapsule.GetComponent<Animator>();
         this._spawnModeActivated = true;
-        spawnCapsuleAnimator.ResetTrigger("HideSpawnCapsule");
-        spawnCapsuleAnimator.SetTrigger("ShowSpawnCapsule");
+        this.ToggleSpawnCapsule(this._spawnModeActivated, this._lockModeActivated);
+        _needShadowAnimator.ResetTrigger("HideText");
+        _needShadowAnimator.SetTrigger("ShowText");
+    }
 
-        if (showNeedShadowText) {
-            _needShadowAnimator.ResetTrigger("HideText");
-            _needShadowAnimator.SetTrigger("ShowText");
+    [ClientRpc]
+    private void ToggleLockMode(bool shouldEnable)
+    {
+        this._lockModeActivated = shouldEnable;
+        this.ToggleSpawnCapsule(this._spawnModeActivated, this._lockModeActivated);
+    }
+
+    private void ToggleSpawnCapsule(bool isSpawnModeActivated, bool isLockModeActivated)
+    {
+        Animator spawnCapsuleAnimator = _spawnCapsule.GetComponent<Animator>();
+
+        if (isSpawnModeActivated || isLockModeActivated) {
+            spawnCapsuleAnimator.ResetTrigger("HideSpawnCapsule");
+            spawnCapsuleAnimator.SetTrigger("ShowSpawnCapsule");
+        }
+        else {
+            spawnCapsuleAnimator.ResetTrigger("ShowSpawnCapsule");
+            spawnCapsuleAnimator.SetTrigger("HideSpawnCapsule");
         }
     }
 }
