@@ -8,7 +8,7 @@ using UnityEngine.XR.ARFoundation;
 public class CharacterMovementControlls : MonoBehaviour
 {
     private CharacterMovement _playerMovement;
-    private LevelManager _levelManager;
+    private LevelPositionManager _levelPositionManager;
     private PlayerSelectManager _playerSelectManager;
 
     [Header("Debug")]
@@ -21,7 +21,7 @@ public class CharacterMovementControlls : MonoBehaviour
 
     private void Start()
     {
-        _levelManager = FindObjectOfType<LevelManager>();
+        _levelPositionManager = FindObjectOfType<LevelPositionManager>();
         _playerSelectManager = FindObjectOfType<PlayerSelectManager>();
     }
 
@@ -39,7 +39,7 @@ public class CharacterMovementControlls : MonoBehaviour
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, groundLayerMask))
             {
                 Vector3 rawHitPoint = hit.point;
-                Vector3 hitPointRelative = Quaternion.Inverse(_levelManager.LevelSpawnPosition.rotation) * (hit.point - _levelManager.LevelSpawnPosition.position);
+                Vector3 hitPointRelative = Quaternion.Inverse(_levelPositionManager.LevelSpawnPosition.rotation) * (hit.point - _levelPositionManager.LevelSpawnPosition.position);
                 _playerMovement.WalkToPosition(hitPointRelative);
             }
         }

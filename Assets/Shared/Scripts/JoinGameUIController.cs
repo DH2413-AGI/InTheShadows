@@ -17,6 +17,10 @@ public class JoinGameUIController : MonoBehaviour
     {
         this._hostButton.onClick.AddListener(this.HostGame);
         this._joinGameButton.onClick.AddListener(this.JoinGame);
+
+        if (LocalStorage.LastIPAdress != null) {
+            _joinGameInput.text = LocalStorage.LastIPAdress;
+        }
     }
 
     void HostGame()
@@ -29,7 +33,7 @@ public class JoinGameUIController : MonoBehaviour
     {
         if (NetworkClient.active) return;
         string networkAdress = _joinGameInput.text.ToString();
-        Debug.Log(networkAdress);
+        LocalStorage.LastIPAdress = networkAdress;
         this._networkManager.networkAddress = networkAdress;
         this._networkManager.StartClient();
     }

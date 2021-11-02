@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3413982860626777294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1, y: -0.2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4948138705507879135}
@@ -113,7 +113,7 @@ MonoBehaviour:
   syncInterval: 0.1
   _visuals: {fileID: 4693181590337928014}
   _visualsOffset: {x: 0, y: -1.5, z: 0}
-  PlayerToFollow: 0
+  PlayerToFollow: 1
 --- !u!114 &246983194876795210
 MonoBehaviour:
   m_ObjectHideFlags: 0

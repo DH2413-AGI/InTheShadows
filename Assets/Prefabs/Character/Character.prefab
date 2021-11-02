@@ -195,10 +195,11 @@ MonoBehaviour:
   _shadowDetector: {fileID: 2926454458302690545}
   _deathParticles: {fileID: 3335714523663822995}
   _spawnCapsule: {fileID: 5179603287046637210}
-  _playerStartHealth: 0.75
+  _playerStartHealth: 1.5
   _healthBar: {fileID: 6836411904132661533}
   _heathUIAnimator: {fileID: 3266434527807326632}
   _walkTutorial: {fileID: 0}
+  _lightSensorsRequired: []
 --- !u!114 &1635783706757270978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6108,15 +6109,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8543473612656330701}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2557214331540458793 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -3031609612986217756, guid: 6cca697c06ff84c8c9d5c20999f19580,
-    type: 3}
-  m_PrefabInstance: {fileID: 8543473612656330701}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7564814251468171146 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2191878109519634503, guid: 6cca697c06ff84c8c9d5c20999f19580,
+    type: 3}
+  m_PrefabInstance: {fileID: 8543473612656330701}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2557214331540458793 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3031609612986217756, guid: 6cca697c06ff84c8c9d5c20999f19580,
     type: 3}
   m_PrefabInstance: {fileID: 8543473612656330701}
   m_PrefabAsset: {fileID: 0}
