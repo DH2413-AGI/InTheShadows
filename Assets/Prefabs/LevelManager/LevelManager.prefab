@@ -52,6 +52,7 @@ MonoBehaviour:
   _startLevelIndex: 0
   _levels:
   - Level1
+  - Level7
   - Level2
   - Level3
   - Level4
