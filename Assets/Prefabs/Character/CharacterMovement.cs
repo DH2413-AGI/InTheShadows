@@ -72,7 +72,7 @@ public class CharacterMovement : NetworkBehaviour
     public void WalkToPosition(Vector3 position)
     {
         // We should not be able to walk if the player is on spawn mode
-        if (this._playerController.SpawnModeActivated) return;
+        if (!this._playerController.PlayerCanWalk) return;
         this._desiredPosition = position;
         this._shouldWalkToDesiredPosition = true;
         this._isCurrentlyMoving = true;

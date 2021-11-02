@@ -23,15 +23,22 @@ public class CharacterController : NetworkBehaviour
     private bool _hasShownWalkTutorial = false;
     private Vector3 _spawnPosition;
     private bool _spawnModeActivated = true;
+    private bool _lockModeActivated = true;
     private bool _deathOngoing = false;
     private CharacterMovement _playerMovement;
     private Animator _needShadowAnimator;
+
+    [SerializeField] private List<LightSensor> _lightSensorsRequired;
 
     [SyncVar]
     private float _currentHealth = 0;
 
     public bool SpawnModeActivated {
         get => _spawnModeActivated;
+    }
+
+    public bool PlayerCanWalk {
+        get => !_spawnModeActivated && !_lockModeActivated;
     }
 
     public float CurrentHealth {
@@ -64,10 +71,26 @@ public class CharacterController : NetworkBehaviour
 
         _healthBar.fillAmount = this._currentHealth / this._playerStartHealth;
         this._heathUIAnimator.SetBool(
-            "ShowHealthUI", 
+            "ShowHealthUI",
             this._currentHealth < this._playerStartHealth && this._currentHealth > 0.0f
         );
+
+        this.CheckLightSensors();
     }
+
+    private void CheckLightSensors()
+    {
+        if (!isServer) return;
+        if (!this._shadowDetector.IsInsideShadow()) return;
+        
+        if (!AtLeastOneLightSensorActive() && !_lockModeActivated) {
+            ToggleLockMode(true);
+        }
+        if (AtLeastOneLightSensorActive() && _lockModeActivated) {
+            ToggleLockMode(false);
+        }
+    }
+
 
     private void HandlePlayerHealth() 
     {
@@ -97,6 +120,18 @@ public class CharacterController : NetworkBehaviour
         this.ShowWalkTutorial();
     }
 
+    private bool AtLeastOneLightSensorActive()
+    {
+        // If we have no light sensor connected to this player, always return true
+        if (this._lightSensorsRequired.Count == 0) return true;
+
+        foreach (var lightSensor in this._lightSensorsRequired)
+        {
+            Debug.Log("Light Sensor Has Light: " + lightSensor.HasLight);
+            if (lightSensor.HasLight) return true;
+        }
+        return false;
+    }
 
     private void ShowWalkTutorial()
     {
@@ -154,11 +189,8 @@ public class CharacterController : NetworkBehaviour
     [ClientRpc]
     private void RpcDisabledSpawnMode()
     {
-        Debug.Log("Disable Spawn Mode");
         this._spawnModeActivated = false;
-        Animator spawnCapsuleAnimator = _spawnCapsule.GetComponent<Animator>();
-        spawnCapsuleAnimator.ResetTrigger("ShowSpawnCapsule");
-        spawnCapsuleAnimator.SetTrigger("HideSpawnCapsule");
+        this.ToggleSpawnCapsule(this._spawnModeActivated, this._lockModeActivated);
         _needShadowAnimator.ResetTrigger("ShowText");
         _needShadowAnimator.SetTrigger("HideText");
     }
@@ -166,12 +198,30 @@ public class CharacterController : NetworkBehaviour
     [ClientRpc]
     private void RpcEnableSpawnMode() 
     {
-        Debug.Log("Enable Spawn Mode");
-        Animator spawnCapsuleAnimator = _spawnCapsule.GetComponent<Animator>();
         this._spawnModeActivated = true;
-        spawnCapsuleAnimator.ResetTrigger("HideSpawnCapsule");
-        spawnCapsuleAnimator.SetTrigger("ShowSpawnCapsule");
+        this.ToggleSpawnCapsule(this._spawnModeActivated, this._lockModeActivated);
         _needShadowAnimator.ResetTrigger("HideText");
         _needShadowAnimator.SetTrigger("ShowText");
+    }
+
+    [ClientRpc]
+    private void ToggleLockMode(bool shouldEnable)
+    {
+        this._lockModeActivated = shouldEnable;
+        this.ToggleSpawnCapsule(this._spawnModeActivated, this._lockModeActivated);
+    }
+
+    private void ToggleSpawnCapsule(bool isSpawnModeActivated, bool isLockModeActivated)
+    {
+        Animator spawnCapsuleAnimator = _spawnCapsule.GetComponent<Animator>();
+
+        if (isSpawnModeActivated || isLockModeActivated) {
+            spawnCapsuleAnimator.ResetTrigger("HideSpawnCapsule");
+            spawnCapsuleAnimator.SetTrigger("ShowSpawnCapsule");
+        }
+        else {
+            spawnCapsuleAnimator.ResetTrigger("ShowSpawnCapsule");
+            spawnCapsuleAnimator.SetTrigger("HideSpawnCapsule");
+        }
     }
 }

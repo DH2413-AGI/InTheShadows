@@ -47,14 +47,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  _enableLevelSkipMode: 0
+  _enableLevelSkipMode: 1
+  _enableResetMode: 0
   _startLevelIndex: 0
   _levels:
   - Level1
   - Level2
-  - Level4
-  - Level5
   - Level3
+  - Level4
+  - LevelLightTowers
+  - AllLevelsCompleted
 --- !u!114 &16332920999762358
 MonoBehaviour:
   m_ObjectHideFlags: 0

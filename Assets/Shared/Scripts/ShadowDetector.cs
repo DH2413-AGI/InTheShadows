@@ -17,6 +17,7 @@ public class ShadowDetector : MonoBehaviour
 
     private bool _wasInsideShadow = false;
 
+    private bool _hasDoneInitialInvoke = false;
 
     void Start()
     {
@@ -30,20 +31,26 @@ public class ShadowDetector : MonoBehaviour
 
     void Update()
     {
-        if (_cameraLight == null) {
+        if (_cameraLight == null)
+        {
             this.TryToFindLight();
             return;
         }
 
         bool currentlyInsideShadow = this.IsInsideShadow();
-        if(currentlyInsideShadow && !_wasInsideShadow ) {
+
+        if (currentlyInsideShadow && (!_wasInsideShadow || !_hasDoneInitialInvoke))
+        {
             _wasInsideShadow = true;
             if (this.OnEnterShadow != null) this.OnEnterShadow.Invoke();
-        } 
-        if(!currentlyInsideShadow && _wasInsideShadow ) {
+        }
+        if (!currentlyInsideShadow && (_wasInsideShadow || !_hasDoneInitialInvoke))
+        {
             _wasInsideShadow = false;
             if (this.OnLeavingShadow != null) this.OnLeavingShadow.Invoke();
-        } 
+        }
+
+        _hasDoneInitialInvoke = true;
     }
 
     public bool IsInsideShadow()
