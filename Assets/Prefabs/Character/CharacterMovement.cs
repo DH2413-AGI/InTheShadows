@@ -109,4 +109,16 @@ public class CharacterMovement : NetworkBehaviour
         Destroy(this._currentWalkingMarker);
     }
 
+    // triggers door
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.tag == "Door")
+        {
+            if (other.GetComponent<DoorMovement>().Moving == false)
+            {
+                other.GetComponent<DoorMovement>().Moving = true;
+            }
+        }
+    }
+
 }

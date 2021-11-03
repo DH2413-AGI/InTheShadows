@@ -56,6 +56,7 @@ MonoBehaviour:
   - Level3
   - Level4
   - LevelLightTowers
+  - Level7
   - AllLevelsCompleted
 --- !u!114 &16332920999762358
 MonoBehaviour:
