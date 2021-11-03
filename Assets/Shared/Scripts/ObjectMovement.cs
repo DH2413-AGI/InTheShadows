@@ -32,13 +32,13 @@ public class ObjectMovement : MonoBehaviour
 
     void MoveTo (Vector3 goalPos)
     {
-        float dist = Vector3.Distance(transform.position, goalPos);
+        float dist = Vector3.Distance(transform.localPosition, goalPos);
 
         
         
         if (dist > 0.01f)
             // transform.position = Vector3.Lerp(transform.position, goalPos, speed * Time.deltaTime);
-            transform.position = Vector3.MoveTowards(transform.position, goalPos, Time.deltaTime * speed);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, goalPos, Time.deltaTime * speed);
         else
         {
             delay += Time.deltaTime;
