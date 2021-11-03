@@ -52,11 +52,11 @@ MonoBehaviour:
   _startLevelIndex: 0
   _levels:
   - Level1
-  - Level7
   - Level2
   - Level3
   - Level4
   - LevelLightTowers
+  - Level7
   - AllLevelsCompleted
 --- !u!114 &16332920999762358
 MonoBehaviour:

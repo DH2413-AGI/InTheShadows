@@ -16,7 +16,7 @@ public class DoorMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startPos = transform.position;
+        startPos = transform.localPosition;
     }
 
     // Update is called once per frame
@@ -37,10 +37,10 @@ public class DoorMovement : MonoBehaviour
 
     void MoveDoor(Vector3 goalPos)
     {
-        float dist = Vector3.Distance(transform.position, goalPos);
+        float dist = Vector3.Distance(transform.localPosition, goalPos);
         if (dist > 0.001f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, goalPos, Time.deltaTime * speed);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, goalPos, Time.deltaTime * speed);
         }
         else
         {
