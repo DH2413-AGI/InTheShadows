@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityCoreHaptics;
 using UnityEngine.AI;
 using UnityEngine.XR.ARFoundation;
 using Mirror;
@@ -16,6 +17,7 @@ public class CharacterController : NetworkBehaviour
     [SerializeField] private float _playerStartHealth = 1.5f;
     [SerializeField] private Image _healthBar;
     [SerializeField] private Animator _heathUIAnimator;
+    [SerializeField] private AudioSource _audioSource;
 
     [Header("Optional")]
     [SerializeField] private GameObject _walkTutorial;
@@ -57,6 +59,7 @@ public class CharacterController : NetworkBehaviour
     {
         this._spawnPosition = this.gameObject.transform.localPosition;
         
+        this._shadowDetector.OnLeavingShadow += this.OnLeavingShadow;
         if (isServer) {
             this._currentHealth = this._playerStartHealth;
             this._shadowDetector.OnEnterShadow += this.OnEnterShadow;
@@ -114,10 +117,28 @@ public class CharacterController : NetworkBehaviour
         }
     }
 
+    private IEnumerator PlayInLightHaptics()
+    {
+        if (UnityCoreHapticsProxy.SupportsCoreHaptics())
+        {
+            bool shouldPlayAgain = !this._shadowDetector.IsInsideShadow() && !SpawnModeActivated && this._currentHealth > 0.0f;
+            if (shouldPlayAgain) {
+                UnityCoreHapticsProxy.PlayTransientHaptics(1.0f, 0.5f);
+                yield return new WaitForSeconds(this._currentHealth / this._playerStartHealth * 0.20f + 0.05f);
+                StartCoroutine(PlayInLightHaptics());
+            }
+        }
+    }
+
     private void OnEnterShadow()
     {
         this.RpcDisabledSpawnMode();
         this.ShowWalkTutorial();
+    }
+
+    private void OnLeavingShadow()
+    {
+        StartCoroutine(PlayInLightHaptics());
     }
 
     private bool AtLeastOneLightSensorActive()
@@ -178,6 +199,10 @@ public class CharacterController : NetworkBehaviour
     private void RpcRunDeathEffects()
     {
         this._deathParticles.Play();
+        #if UNITY_IPHONE || UNITY_ANDROID
+            Handheld.Vibrate();
+        #endif
+        _audioSource.Play();
     }
 
     [ClientRpc]

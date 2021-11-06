@@ -7,6 +7,7 @@ public class LevelManager : NetworkBehaviour
 {
     [Header("If active, press enter or two fingers to skip to next level")]
     [SerializeField] private bool _enableLevelSkipMode = false;
+    [SerializeField] private AudioSource _audioSource;
 
     [Header("If active, press tab to reset the levels")]
     [SerializeField] private bool _enableResetMode = false;
@@ -80,6 +81,7 @@ public class LevelManager : NetworkBehaviour
 
     public void LoadNextLevelAfterClear()
     {
+        PlayWinSound();
         ShowLevelClearText();
         LoadNextLevel();
     }
@@ -88,6 +90,12 @@ public class LevelManager : NetworkBehaviour
     private void ShowLevelClearText()
     {
         _levelUIController.ShowLevelClearText();
+    }
+
+    [ClientRpc]
+    private void PlayWinSound()
+    {
+        _audioSource.Play();
     }
 
     [ClientRpc]

@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineThickness: 1.25
-  lineIntensity: 0.3
+  lineIntensity: 1
   fillAmount: 0.2
   lineColor0: {r: 0, g: 0.67058825, b: 1, a: 1}
   lineColor1: {r: 0, g: 1, b: 0, a: 1}
@@ -383,6 +383,7 @@ GameObject:
   - component: {fileID: 7587087413378387987}
   - component: {fileID: 7587087413378387986}
   - component: {fileID: 5869814897541674719}
+  - component: {fileID: 1903907737118899542}
   m_Layer: 0
   m_Name: AR Camera
   m_TagString: MainCamera
@@ -509,7 +510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineThickness: 1.24
-  lineIntensity: 0.3
+  lineIntensity: 1
   fillAmount: 0.2
   lineColor0: {r: 0, g: 0.6708865, b: 1, a: 1}
   lineColor1: {r: 0, g: 1, b: 0, a: 1}
@@ -529,3 +530,11 @@ MonoBehaviour:
   outlineShaderMaterial: {fileID: 0}
   renderTexture: {fileID: 0}
   extraRenderTexture: {fileID: 0}
+--- !u!81 &1903907737118899542
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7587087413378387988}
+  m_Enabled: 1
